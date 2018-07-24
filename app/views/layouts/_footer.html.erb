@@ -1,0 +1,182 @@
+<footer class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 footer_column">
+        <div class="footer_col">
+          <div class="footer_content footer_about">
+            <div class="logo_container footer_logo">
+              <div class="logo">
+                <%= link_to image_tag("logo.png") %>
+                travelix
+              </div>
+            </div>
+            <p class="footer_about_text">Travelix is an online website that
+              support customers in traveling.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 footer_column">
+        <div class="footer_col">
+          <div class="footer_title">blog posts</div>
+          <div class="footer_content footer_blog">
+
+            <div class="footer_blog_item clearfix">
+              <div class="footer_blog_image">
+                <%= link_to image_tag("footer_blog_1.jpg"), "#" %>
+              </div>
+              <div class="footer_blog_content">
+                <div class="footer_blog_title">
+                  <%= link_to "Travel with us this year", "#" %>
+                </div>
+                <div class="footer_blog_date">Nov 29, 2017</div>
+              </div>
+            </div>
+
+            <div class="footer_blog_item clearfix">
+              <div class="footer_blog_image">
+                <%= link_to image_tag("footer_blog_2.jpg"), "#" %>
+              </div>
+              <div class="footer_blog_content">
+                <div class="footer_blog_title">
+                  <%= link_to "New destinations for you", "#" %>
+                </div>
+                <div class="footer_blog_date">Nov 29, 2017</div>
+              </div>
+            </div>
+
+            <div class="footer_blog_item clearfix">
+              <div class="footer_blog_image">
+                <%= link_to image_tag("footer_blog_2.jpg"), "#" %>
+              </div>
+              <div class="footer_blog_content">
+                <div class="footer_blog_title">
+                  <%= link_to "Travel with us this year", "#" %>
+                </div>
+                <div class="footer_blog_date">Nov 29, 2017</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 footer_column">
+        <div class="footer_col">
+          <div class="footer_title">tags</div>
+          <div class="footer_content footer_tags">
+            <ul class="tags_list clearfix">
+              <li class="tag_item">
+                <%= link_to "design", "#" %>
+              </li>
+              <li class="tag_item">
+                <%= link_to "fashion", "#" %>
+              </li>
+              <li class="tag_item">
+                <%= link_to "music", "#" %>
+              </li>
+              <li class="tag_item">
+                <%= link_to "video", "#" %>
+              </li>
+              <li class="tag_item">
+                <%= link_to "party", "#" %>
+              </li>
+              <li class="tag_item">
+                <%= link_to "photograph", "#" %>
+              </li>
+              <li class="tag_item">
+                <%= link_to "adventure", "#" %>
+              </li>
+              <li class="tag_item">
+                <%= link_to "travel", "#" %>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 footer_column">
+        <div class="footer_col">
+          <div class="footer_title">contact info</div>
+          <div class="footer_content footer_contact">
+            <ul class="contact_info_list">
+              <li class="contact_info_item d-flex flex-row">
+                  <div class="contact_info_icon">
+                      <%= link_to image_tag("placeholder.svg", alt: "") %>
+                  </div>
+                <div class="contact_info_text">Pham Thi Hanh Tuyen
+                </div>
+              </li>
+              <li class="contact_info_item d-flex flex-row">
+                <div class="contact_info_icon">
+                    <%= link_to image_tag("phone-call.svg", alt: "") %>
+                </div>
+                <div class="contact_info_text">2556-808-8613</div>
+              </li>
+              <li class="contact_info_item d-flex flex-row">
+                <div class="contact_info_icon">
+                    <%= link_to image_tag("message.svg", alt: "") %>
+                </div>
+                <div class="contact_info_text">pham.thi.hanh.tuyen@framgia.com
+                </div>
+              </li>
+              <li class="contact_info_item d-flex flex-row">
+                <div class="contact_info_icon">
+                    <%= link_to image_tag("planet-earth.svg", alt: "") %>
+                </div>
+                <div class="contact_info_text">
+                  <%= link_to "www.travelix.com", "https://travelix.com" %>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</footer>
+
+<div class="copyright">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 order-lg-1 order-2  ">
+        <div class="copyright_content d-flex flex-row align-items-center">
+          <div>
+            Copyright &copy;<script>
+              document.write(new Date().getFullYear());
+            </script>
+            All rights reserved | This template is made with
+            <i class="fa fa-heart-o" aria-hidden="true"></i>
+            by
+            <a href="https://colorlib.com" target="_blank">Colorlib</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-9 order-lg-2 order-1">
+        <div class="footer_nav_container d-flex flex-row align-items-center
+          justify-content-lg-end">
+          <div class="footer_nav">
+            <ul class="footer_nav_list">
+              <li class="footer_nav_item">
+                <%= link_to "Home", root_path %>
+              </li>
+              <li class="footer_nav_item">
+                <%= link_to "About Us", about_path %>
+              </li>
+              <li class="footer_nav_item">
+                <%= link_to "Offers", "#" %>
+              </li>
+              <li class="footer_nav_item">
+                <%= link_to "News", "#" %>
+              </li>
+              <li class="footer_nav_item">
+                <%= link_to "Contact", "#" %>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

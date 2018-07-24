@@ -1,0 +1,62 @@
+<header class="header">
+  <div class="top_bar">
+    <div class="container">
+      <div class="row">
+        <div class="col d-flex flex-row">
+          <div class="phone">2556-808-8613</div>
+          <div class="user_box ml-auto">
+            <div class="user_box_login user_box_link">
+              <%= link_to "login", "#" %>
+            </div>
+            <div class="user_box_register user_box_link">
+              <%= link_to "register", signup_path , remote: true, data: { target: '#createuser', toggle: 'modal' }, class: 'nav-link'%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="main_nav">
+    <div class="container">
+      <div class="row">
+        <div class="col main_nav_col d-flex flex-row align-items-center
+          justify-content-start">
+          <div class="logo_container">
+            <div class="logo">
+              <%= link_to image_tag("logo.png") %>
+              travelix
+            </div>
+          </div>
+          <div class="main_nav_container ml-auto">
+            <ul class="main_nav_list">
+              <li class="main_nav_item">
+                <%= link_to "Home", root_path %>
+              </li>
+              <li class="main_nav_item">
+                <%= link_to "About Us", about_path %>
+              </li>
+              <li class="main_nav_item">
+                <%= link_to "Offers", "#" %>
+              </li>
+              <li class="main_nav_item">
+                <%= link_to "News", "#" %>
+              </li>
+              <li class="main_nav_item">
+                <%= link_to "Contact", "#" %>
+              </li>
+            </ul>
+          </div>
+
+          <form id="search_form" class="search_form bez_1">
+            <input type="search" class="search_content_input bez_1">
+          </form>
+
+          <div class="hamburger">
+            <i class="fa fa-bars trans_200"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>

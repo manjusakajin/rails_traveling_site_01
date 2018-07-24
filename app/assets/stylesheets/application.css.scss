@@ -10,6 +10,16 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
+ *= require about_responsive
+ *= require about_styles
+ *= require main_styles
+ *= require responsive
+ *= require OwlCarousel2-2.2.1/animate
+ *= require OwlCarousel2-2.2.1/owl.carousel
+ *= require OwlCarousel2-2.2.1/owl.theme.default
  *= require_tree .
  *= require_self
  */
+
+@import 'bootstrap';
+@import 'font-awesome';

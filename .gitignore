@@ -33,3 +33,5 @@
 /config/application.yml
 
 /config/database.yml
+
+app/assets/images/

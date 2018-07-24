@@ -17,8 +17,9 @@ module RailsTravelingSite01
   class Application < Rails::Application
     config.load_defaults 5.2
     config.generators.system_tests = nil
-    I18n.load_path += Dir[Rails.root.join("lib", "locale", "*.{rb,yml}")]
+    config.i18n.load_path +=
+      Dir[Rails.root.join("config", "locales", "**", "*.{rb,yml}")]
     I18n.available_locales = [:en, :vi]
-    I18n.default_locale = :vi
+    I18n.default_locale = :en
   end
 end
