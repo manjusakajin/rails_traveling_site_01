@@ -131,6 +131,7 @@ ActiveRecord::Schema.define(version: 2018_08_17_092439) do
 
   create_table "trips", force: :cascade do |t|
     t.string "name"
+    t.string "begin"
     t.integer "destination_id"
     t.integer "user_id"
     t.text "expense"

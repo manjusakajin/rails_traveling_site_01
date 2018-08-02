@@ -10,7 +10,6 @@ $(document).ready(function() {
       return data.chatroom_id
     },
     renderMessage: function(data) {
-      $('#qnimate').addClass('popup-box-on');
       $('#scroll').animate({scrollTop: $('#scroll')[0].scrollHeight}, 1000);
       return data.message
     }
