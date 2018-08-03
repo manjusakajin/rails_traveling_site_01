@@ -31,7 +31,10 @@ class TripsController < ApplicationController
     if @trip.save
       flash[:success] = t "create_success"
       @trip.participations.create user: @trip.owner, accepted: :join_in
+<<<<<<< HEAD
       @chatroom = Chatroom.create topic: @trip.name, slug: @trip.id
+=======
+>>>>>>> check_request
       redirect_to @trip
     else
       flash[:danger] = t "create_fail"
@@ -82,6 +85,7 @@ class TripsController < ApplicationController
     redirect_to root_url
   end
 
+<<<<<<< HEAD
   def check_delete
 
      return if current_user.is_user?(@trip.owner) || current_user.is_admin?
@@ -94,6 +98,13 @@ class TripsController < ApplicationController
 
     return if @participation&.join_in?
     flash[:danger] = t "not_member"
+=======
+  def check_member
+    @participation = Participation.find_by user_id: current_user.id
+
+    return if @participation&.join_in?
+    flash[:danger] = t "danger.not_member"
+>>>>>>> check_request
     redirect_to root_url
   end
 end
