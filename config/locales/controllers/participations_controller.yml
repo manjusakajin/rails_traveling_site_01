@@ -1,16 +1,36 @@
 en:
   success:
     add_member: "Add member success"
+    accept: "Accepted"
+    reject: "Success"
+    exit: "Exit"
+    send_request: "Send request success"
   danger:
     add_member: "Add member fail"
     find_user: "Can not find user"
     find_trip: "Can not find trip"
-    check_user:  "Just owner can add member"
+    check_user:  "You are group member"
+    accept: "Can not Accept"
+    reject: "Fail"
+    out_group: "Can not out group"
+    find_part: "Can not find participation"
+    exit: "Can not exit group"
+    send_request: "Send request fail"
 vi:
   success:
     add_member: "Thêm thành viên thành công"
+    accept: "Đã đồng ý"
+    reject: "Đã hủy bỏ"
+    exit: "Đã thoát"
+    send_request: "Gửi yêu cầu thành công"
   danger:
     add_member: "Thêm thành viên thất bại"
     find_user: "Không tìm thấy user"
     find_trip: "Không tìm thầy chuyến đi"
-    check_user:  "Chỉ có chủ nhóm được thêm thành viên"
+    check_user:  "Bạn đã là thành viên của nhóm"
+    accept: "Không thể đồng ý"
+    reject: "Không thể hủy bỏ"
+    out_group: "Không thể tách nhóm"
+    find_part: "Không tìm thấy liên hệ"
+    exit: "Không thể thoát"
+    send_request: "Gửi yêu cầu thất bại"

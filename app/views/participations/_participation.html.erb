@@ -1,0 +1,19 @@
+<div class="row" id="list">
+  <div class="col-md-2">
+    <%= image_tag "latest_3.jpg",
+      size: Settings.participation.picture_size %>
+  </div>
+  <div class="col-md-5">
+    <ul>
+      <li><h2><%= participation.user.name %></h2></li>
+    </ul>
+  </div>
+  <% if current_user.is_user? @trip.owner %>
+    <div class="pull-right">
+      <%= link_to owner_trip_participation_path(participation),
+        method: :delete, data: {confirm: t("confirm_delete")} do %>
+        <i class="fa fa-trash-o fa-2x fa-border"></i>
+      <% end %>
+    </div>
+  <% end %>
+</div>

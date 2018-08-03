@@ -12,3 +12,5 @@ paginate:
   per: 9
 hastags:
   top: 10
+participation:
+  picture_size: 150
