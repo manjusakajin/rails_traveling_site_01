@@ -4,6 +4,7 @@ en:
   login: "Login"
   new_user: "New User ?  "
   signup: "Sign Up"
+  remember_me: "Remember me on this computer"
 
 vi:
   email: "Thư điện tử"
@@ -11,3 +12,4 @@ vi:
   login: "Đăng nhập"
   new_user: "Người dùng mới ?  "
   signup: "Đăng kí"
+  remember_me: "Ghi nhớ tôi trên thiết bị này"

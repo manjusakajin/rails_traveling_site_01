@@ -8,27 +8,38 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = @commentable.comments.new comment_params
-    if @comment.save
-      if params[:comment_id]
-        channel = "comments_#{params[:comment][:review_id]}_channel"
-        comment_id = params[:comment_id]
-      else
-        channel = "comments_#{params[:review_id]}_channel"
-      end
-      ActionCable.server.broadcast channel,
-        comment: render_to_string(partial: "comments/comment",
-          locals: {comment: @comment}),
-        comment_other: render_to_string(partial: "comments/comment_other",
-          locals: {comment: @comment}),
-        user: @comment.user_id,
-        type: @comment.commentable_type,
-        comment_id: comment_id
-      head :ok
+    if params[:comment_id]
+      review_id = params[:comment][:review_id]
     else
-      flash.now[:danger] = t "error.create_comment"
+      review_id = params[:review_id]
+    end
+    if !@commentable
+      flash[:danger] = t "error_parrent_comment_not_found"
+      redirect_to review_url(review_id)
+    else
+      @comment = @commentable.comments.new comment_params
+      if @comment.save
+        channel = "comments_#{review_id}_channel"
+        if params[:comment_id]
+          comment_id = params[:comment_id]
+        end
+        ActionCable.server.broadcast channel,
+          comment: render_to_string(partial: "comments/comment",
+            locals: {comment: @comment}),
+          comment_other: render_to_string(partial: "comments/comment_other",
+            locals: {comment: @comment}),
+          user: @comment.user_id,
+          type: @comment.commentable_type,
+          comment_id: comment_id
+        head :ok
+      else
+        flash[:danger] = t "error_comment_not_found"
+        redirect_to review_url(review_id)
+      end
     end
   end
+
+  def edit; end
 
   def update
     @comment.update_attributes body: params[:comment][:body]
@@ -36,7 +47,7 @@ class CommentsController < ApplicationController
 
   def destroy
     return if @comment.destroy
-    flash.now[:danger] = t "error.delete_comment"
+    flash.now[:danger] = t "error_delete_comment"
   end
 
   private
@@ -57,7 +68,7 @@ class CommentsController < ApplicationController
     @comment = Comment.find_by id: params[:id]
 
     return if @comment
-    flash.now[:danger] = t "error.comment_not_found"
+    flash.now[:danger] = t "error_comment_not_found"
     redirect_to reviews_url
   end
 

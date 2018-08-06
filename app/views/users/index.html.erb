@@ -8,7 +8,7 @@
         <strong><%= user.name %></strong>
       </h5>
       <p class="mb-2"><%= user.email %></p>
-      <% if current_user.admin? && !current_user.is_user?(user) %>
+      <% if current_user.is_admin? && !current_user.is_user?(user) %>
         <div class="pull-right">
           <%= link_to user, method: :delete,
             data: {confirm: t("confirm_delete")} do %>

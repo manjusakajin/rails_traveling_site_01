@@ -355,7 +355,7 @@ a {
 .blog-comment ul.comments ul {
   list-style-type: none;
   padding: 0;
-  margin-left: 85px;
+  margin-left: 0;
 }
 
 .blog-comment-form {

@@ -89,6 +89,22 @@ Rails.application.configure do
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
 
+  config.action_mailer.smtp_settings = {
+   :address => "smtp.gmail.com",
+   :port => 587,
+   :user_name => ENV["mail_username"],
+   :password => ENV["mail_password"],
+   :authentication => "plain",
+   :enable_starttls_auto => true,
+   :openssl_verify_mode  => "none"
+  }
+
+  host = "gentle-tor-59171.herokuapp.com"
+  config.action_mailer.default_url_options = { host: host, protocol: "https"  }
+  config.action_mailer.perform_caching = false
+
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+  config.web_socket_server_url = "wss://peaceful-ocean-26639.herokuapp.com/cable"
+  config.action_cable.allowed_request_origins = ['https://peaceful-ocean-26639.herokuapp.com', 'http://peaceful-ocean-26639.herokuapp.com']
 end

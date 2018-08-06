@@ -25,23 +25,30 @@
               <p><%= strip_tags @review.content %></p>
             </div>
           </div>
-
-          <ul class="comment-errors"></ul>
-          <div class="blog-comment">
-            <h2><%= t "comment" %></h2>
-            <div class="pb-cmnt-container">
+            <ul class="comment-errors"></ul>
+            <div class="blog-comment">
+              <h2><%= t "comment" %></h2>
+              <% if logged_in? %>
+              <div class="pb-cmnt-container">
+                <%= form_for :comment,
+                  url: review_comments_path(:review_id => @review.id),
+                  :html => {:class => "form-inline"}, remote: true do |f| %>
+                  <%= f.text_area :body, placeholder: t("add_a_comment"),
+                    class: "box-clear" %><br/>
+                  <%= f.hidden_field :user_id, value: current_user.id, id: "user_review" %>
+                  <%= f.hidden_field :review_id, value: @review.id %>
+                  <%= f.submit t("add_comment"),
+                    class: "btn btn-primary pull-right", data: {send: "review"} %>
+                <% end %>
+              </div>
+              <hr/>
+            <% else %>
               <%= form_for :comment,
-                url: review_comments_path(:review_id => @review.id),
-                :html => {:class => "form-inline"}, remote: true do |f| %>
-                <%= f.text_area :body, placeholder: t("add_a_comment"),
-                  class: "box-clear" %><br/>
-                <%= f.hidden_field :user_id, value: current_user.id %>
+                  url: review_comments_path(:review_id => @review.id),
+                  :html => {:class => "form-inline"}, remote: true do |f| %>
                 <%= f.hidden_field :review_id, value: @review.id %>
-                <%= f.submit t("add_comment"),
-                  class: "btn btn-primary pull-right", data: {send: "review"} %>
               <% end %>
-            </div>
-            <hr/>
+            <% end %>
             <ul class="comments" id="comments_review">
               <li class="clearfix">
                 <p>

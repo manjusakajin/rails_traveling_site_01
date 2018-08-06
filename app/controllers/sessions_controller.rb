@@ -12,6 +12,7 @@ class SessionsController < ApplicationController
     if check_user
       if @user.is_actived?
         log_in @user
+        params[:session][:remember_me] == "1" ? remember(@user) : forget(@user)
         flash.now[:success] = t "success.login"
       else
         flash[:warning] = t "warning.active"
@@ -33,7 +34,7 @@ class SessionsController < ApplicationController
     @user = User.find_by email: params[:session][:email].downcase
 
     return if @user
-    flash.now[:danger] = t "error.find_user"
+    flash.now[:danger] = t "cant_find_user"
     render :new
   end
 

@@ -18,6 +18,10 @@
   transform-origin: center left;
 }
 
+#content-sidebar {
+  margin-left: 50px;
+}
+
 #sidebar.active {
   margin-left: -250px;
   transform: rotateY(100deg);

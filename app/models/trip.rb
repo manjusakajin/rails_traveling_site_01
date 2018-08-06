@@ -4,9 +4,12 @@ class Trip < ApplicationRecord
   belongs_to :place, foreign_key: "destination_id"
   belongs_to :owner, class_name: User.name, foreign_key: :user_id
 
+  has_one :chatroom, dependent: :destroy, foreign_key: "slug"
+
   has_many :participations, dependent: :destroy
   has_many :members, through: :participations,
     class_name: User.name, source: :user
+  has_many :notifications
 
   scope :per_page, ->{per Settings.paginate.per}
 

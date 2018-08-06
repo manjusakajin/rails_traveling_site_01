@@ -11,8 +11,7 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery3
-//= require jquery_ujs
+//= require rails-ujs
 //= require popper
 //= require bootstrap
 //= require activestorage
@@ -21,8 +20,20 @@
 //= require chatrooms
 //= require about_custom
 //= require blog_custom
-//= require ckeditor/init
 //= require cable
 //= require custom
 //= require sidebar
 //= require_tree .
+$(document).ready(function () {
+  $('a.load-more').click(function (e) {
+    e.preventDefault();
+    $.ajax({
+        type: "GET",
+        url: $(this).attr('href'),
+        dataType: "script",
+        success: function () {
+            $('.load-more').show();
+        }
+    });
+  });
+});

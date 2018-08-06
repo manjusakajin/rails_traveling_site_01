@@ -7,6 +7,7 @@ en:
   about: "About Us"
   reviews: "Reviews"
   create_review: "Create review"
+  trips: "Trips"
 
 vi:
   base_title: "Travelix"
@@ -15,5 +16,6 @@ vi:
   logout: "Đăng xuất"
   home: "trang chủ"
   about: "về chúng tôi"
-  blog: "blog"
+  reviews: "Đánh giá"
+  trips: "Chuyến đi"
   create_review: "Tạo đánh giá"

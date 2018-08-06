@@ -4,6 +4,8 @@ en:
     find_user: "Can not find this user"
   success:
     login: "Login Success"
+  warning:
+    active: "Account not activated. Check your email for the activation link."
 
 vi:
   error:
@@ -11,3 +13,6 @@ vi:
     find_user: "Không thể tìm thấy người dùng"
   success:
     login: "Đăng nhập thành công"
+  warning:
+    active: "Tài khoản chưa được kích hoạt. Kiểm tra email để lấy link
+      kích hoạt."

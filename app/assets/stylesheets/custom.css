@@ -5,6 +5,18 @@ body
 {
     font-family: "Open Sans", sans-serif;
 }
+.checkbox {
+  margin-top: -10px;
+  margin-bottom: 10px;
+  span {
+    margin-left: 20px;
+    font-weight: normal;
+  }
+}
+#session_remember_me {
+  width: auto;
+  margin-left: 0;
+}
 .popup-box {
     background-color: #ffffff;
     border: 1px solid #b0b0b0;

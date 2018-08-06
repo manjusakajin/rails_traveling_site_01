@@ -1,7 +1,7 @@
 en:
   send_request: "SEND REQUEST"
   owner: "Owner: "
-  begin: "Begin: "
+  begin_field: "Begin: "
   destination: "Destination: "
   member: "Member: "
 vi:

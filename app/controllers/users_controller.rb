@@ -2,11 +2,11 @@ class UsersController < ApplicationController
   before_action :find_user, only: [:edit, :update, :destroy]
   before_action :logged_in_user, except: [:new, :create]
   before_action :correct_user, only: [:edit, :update]
-  before_action :admin_user, only: [:index, :destroy]
+  before_action :admin_user, only: [:destroy]
   layout "user_layout", except: [:new, :create]
 
   def index
-    @users = User.page(params[:page]).per Settings.paginate.per
+    @users = User.page(params[:page]).per Settings.paginate.per_user
   end
 
   def new
@@ -20,10 +20,11 @@ class UsersController < ApplicationController
   def create
     @user = User.new user_params
     if @user.save
-      flash[:success] = t "sucess_create"
+      @user.send_activation_email
+      flash[:notice] = t "check_active"
       redirect_to root_url
     else
-      flash[:danger] = t "create_fail"
+      flash[:danger] = t "fail_create"
       render :new
     end
   end
@@ -68,6 +69,6 @@ class UsersController < ApplicationController
   end
 
   def admin_user
-    redirect_to root_url unless current_user.admin?
+    redirect_to root_url unless current_user.is_admin?
   end
 end

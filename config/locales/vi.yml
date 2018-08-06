@@ -1,4 +1,16 @@
 vi:
+  error_parrent_comment_not_found: "Không thấy cha"
+  error_comment_not_found: "Không thấy bình luận"
+  error_delete_comment: "Không xóa được"
+  are_you_sure?: "Bạn chắc chứ?"
+  Reply: "Trả lời"
+  edit: "Sửa"
+  add_a_comment: "Thêm một bình luận"
+  add_comment: "Thêm bình luận"
+  updated_at: "Đã sửa vào"
+  add_a_reply: "Trả lời bình luận"
+  open_chat: "Mở hộp thoại"
+  load_more: "Xem thêm"
   date:
     abbr_day_names:
     - CN

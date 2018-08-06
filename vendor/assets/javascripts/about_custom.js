@@ -16,9 +16,8 @@
 
 $(document).ready(function()
 {
-	"use strict";
 
-	/* 
+	/*
 
 	1. Vars and Inits
 
@@ -27,7 +26,6 @@ $(document).ready(function()
 	var menu = $('.menu');
 	var menuActive = false;
 	var header = $('.header');
-	var ctrl = new ScrollMagic.Controller();
 	var searchActive = false;
 
 	setHeader();
@@ -47,7 +45,7 @@ $(document).ready(function()
 	initMilestones();
 	initSearchForm();
 
-	/* 
+	/*
 
 	2. Set Header
 
@@ -83,7 +81,7 @@ $(document).ready(function()
 		}
 	}
 
-	/* 
+	/*
 
 	3. Init Menu
 
@@ -120,7 +118,7 @@ $(document).ready(function()
 				}
 			});
 
-	
+
 		}
 	}
 
@@ -136,7 +134,7 @@ $(document).ready(function()
 		menuActive = false;
 	}
 
-	/* 
+	/*
 
 	4. Init Stats
 
@@ -201,7 +199,7 @@ $(document).ready(function()
 		}
 	}
 
-	/* 
+	/*
 
 	5. Initialize Milestones
 
@@ -245,20 +243,19 @@ $(document).ready(function()
 		    		var counterTween = TweenMax.to(counter, 4,
 		    		{
 		    			value: endValue,
-		    			roundProps:"value", 
-						ease: Circ.easeOut, 
+		    			roundProps:"value",
+						ease: Circ.easeOut,
 						onUpdate:function()
 						{
 							document.getElementsByClassName('milestone_counter')[i].innerHTML = signBefore + counter.value + signAfter;
 						}
 		    		});
 		    	})
-			    .addTo(ctrl);
 	    	});
 		}
 	}
 
-	/* 
+	/*
 
 	6. Init Search Form
 
@@ -299,7 +296,7 @@ $(document).ready(function()
 					searchForm.removeClass('active');
 					searchActive = false;
 				}
-			});	
+			});
 		}
 	}
 });

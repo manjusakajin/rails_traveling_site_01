@@ -4,6 +4,7 @@ User.create!(name:  "Example User",
              password_confirmation: "foobar",
              is_admin: true,
              is_actived: true,
+             activated_at: Time.zone.now,
              is_deleted: false)
 
 99.times do |n|
@@ -15,6 +16,7 @@ User.create!(name:  "Example User",
                password: password,
                password_confirmation: password,
                is_actived: true,
+               activated_at: Time.zone.now,
                is_deleted: false)
 end
 
@@ -23,8 +25,4 @@ users = User.order(:created_at).take(6)
   title = Faker::Lorem.sentence(1)
   content = Faker::Lorem.paragraph
   users.each {|user| user.reviews.create!(title:title, content: content)}
-end
-
-5.times do |n|
-  Chatroom.create!(topic: "group#{n+1}", slug: "group#{n+1}")
 end

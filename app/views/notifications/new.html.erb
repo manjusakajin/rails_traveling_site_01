@@ -1,0 +1,11 @@
+<% provide :title, "Send notification" %>
+<div class="field">
+  <%= form_for [@trip, @notification] do |f| %>
+    <%= render "shared/error_messages", object: f.object %>
+    <br>
+     <%= f.text_area :event, rows: Settings.rows,
+        cols: Settings.cols, class: "form-control" %>
+    <br>
+    <%= f.submit "Chance", class: "btn btn-primary" %>
+  <% end %>
+</div>

@@ -4,8 +4,8 @@ class MessagesController < ApplicationController
     message.user = current_user
     return unless message.save
     ActionCable.server.broadcast "messages_#{message.chatroom_id}_channel",
-      message: message.content,
-      user: message.user.name
+      message: render_to_string(partial: "messages/message",
+        locals: {message: message})
     head :ok
   end
 

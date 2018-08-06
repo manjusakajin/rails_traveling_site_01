@@ -1,8 +1,15 @@
 en:
+  error_parrent_comment_not_found: "Error parrent comment not found"
+  error_comment_not_found: "Error comment not found"
+  error_delete_comment: "Error delete comment"
+  Reply: "Reply"
+  edit: "Edit"
   add_a_comment: "Add a comment"
   add_comment: "Comment"
+  updated_at: "Updated at"
   add_a_reply: "Add a reply"
-  reply: "Reply"
+  open_chat: "Open Chat"
+  load_more: "Load more"
   date:
     abbr_day_names:
     - Sun

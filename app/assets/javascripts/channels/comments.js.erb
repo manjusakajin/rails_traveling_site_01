@@ -1,6 +1,5 @@
 $(document).ready(function() {
   reviewId = $('input#comment_review_id').val();
-  userId = $('input#comment_user_id').val();
   App.comments = App.cable.subscriptions.create({channel: 'CommentsChannel',
     review_id: reviewId}, {
     received: function(data) {
@@ -18,7 +17,7 @@ $(document).ready(function() {
       return data.review_id
     },
     renderComment: function(data) {
-      if (data.comment.includes("user".concat($('input#comment_user_id').val()))) {
+      if (data.user==$('input#user_review').val()) {
         return data.comment
       }
       else return data.comment_other;
