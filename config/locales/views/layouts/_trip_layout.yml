@@ -1,0 +1,12 @@
+en:
+  send_notif: "Send Notification"
+  edit_plant: "Chance Plant"
+  edit_expense: "Chance Expense"
+  check_request: "Check Request"
+  delete_trip: "Delete Trip"
+vi:
+  send_notif: "Gửi thông báo"
+  edit_plant: "Sửa kế hoạch"
+  edit_expense: "Sửa chi tiêu"
+  check_request: "Kiểm tra yêu cầu"
+  delete_trip: "Xóa chuyến đi"
