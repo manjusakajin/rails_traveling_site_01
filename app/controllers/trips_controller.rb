@@ -1,6 +1,7 @@
 class TripsController < ApplicationController
   before_action :logged_in_user
-  before_action :find_trip, only: :show
+  before_action :find_trip, :check_member, only: [:show]
+  layout "trip_layout", only: :show
 
   def index
     @trips = if params[:keyword]
@@ -20,7 +21,7 @@ class TripsController < ApplicationController
     @trip = Trip.new trip_params
     if @trip.save
       flash[:success] = t "create_success"
-      @trip.members << @trip.owner
+      @trip.participations.create user: @trip.owner, accepted: :join_in
       redirect_to @trip
     else
       flash[:danger] = t "create_fail"
@@ -48,6 +49,14 @@ class TripsController < ApplicationController
 
     return if @trip
     flash[:danger] = t "danger.find_trip"
+    redirect_to root_url
+  end
+
+  def check_member
+    @participation = Participation.find_by user_id: current_user.id
+
+    return if @participation&.join_in?
+    flash[:danger] = t "danger.not_member"
     redirect_to root_url
   end
 end
