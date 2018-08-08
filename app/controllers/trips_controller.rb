@@ -1,9 +1,14 @@
 class TripsController < ApplicationController
+<<<<<<< HEAD
   before_action :authenticate_user!
   before_action :find_trip, only:[:show, :destroy]
   before_action :check_member, only:[:show, :destroy]
   before_action :check_delete, only: [:destroy]
   layout "trip_layout", only: :show
+=======
+  before_action :logged_in_user
+  before_action :find_trip, :check_member, only: [:show]
+>>>>>>> check_request_2
 
   def index
     @trips = if params[:user_id]
@@ -50,6 +55,7 @@ class TripsController < ApplicationController
     @user = @trip.owner
   end
 
+<<<<<<< HEAD
   def destroy
     if @trip.destroy
       flash[:success] = t "delete_success"
@@ -57,6 +63,14 @@ class TripsController < ApplicationController
       flash[:danger] = t "delete_fail"
     end
     redirect_to root_url
+=======
+    if @user
+      render layout: "layouts/trip_layout"
+    else
+      flash[:danger] = t "danger.find_user"
+      redirect_to root_url
+    end
+>>>>>>> check_request_2
   end
 
   private
