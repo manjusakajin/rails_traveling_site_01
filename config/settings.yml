@@ -10,7 +10,11 @@ trip:
     maximum: 50
 paginate:
   per: 9
+  per_user: 8
 hastags:
   top: 10
 participation:
   picture_size: 150
+cols: 80
+time:
+  expired_time: 2

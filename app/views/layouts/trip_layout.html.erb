@@ -53,8 +53,10 @@
                 <%= link_to t("add_member"),
                   owner_trip_searchs_path(trip_id: @trip.id) %>
                 <%= link_to t("send_notif"), "#" %>
-                <%= link_to t("edit_plant"), "#" %>
-                <%= link_to t("edit_expense"), "#" %>
+                <%= link_to t("edit_plant"),
+                  edit_owner_trip_path(field: :plant) %>
+                <%= link_to t("edit_expense"),
+                  edit_owner_trip_path(field: :expense) %>
                 <%= link_to t("check_request"),
                   owner_trip_participations_path(trip_id: @trip) %>
               <% end %>

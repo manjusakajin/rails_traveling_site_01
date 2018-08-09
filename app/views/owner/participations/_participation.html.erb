@@ -11,11 +11,11 @@
   <% if logged_in? %>
     <div class="col-md-5" id="send_request_button">
       <%= button_to t("accept"),
-        owner_trip_participation_path(participation), method: :patch,
+        owner_trip_participation_path(id: participation), method: :patch,
         data: {confirm: t("confirm_delete")}, class: "btn btn-primary" %>
       <br>
       <%= button_to t("reject"),
-        owner_trip_participation_path(participation), method: :delete,
+        owner_trip_participation_path(id: participation), method: :delete,
         data: {confirm: t("confirm_delete")}, class: "btn btn-primary" %>
     </div>
   <% end %>
