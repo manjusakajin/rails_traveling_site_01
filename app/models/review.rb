@@ -20,7 +20,7 @@ class Review < ApplicationRecord
     using: {tsearch: {any_word: true}}
 
   def hastags_list
-    @hastags_list || hastags.map(&:name).join(", ")
+    @hastags_list || hastags.map(&:title).join(", ")
   end
 
   private
