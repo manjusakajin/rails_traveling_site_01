@@ -1,7 +1,6 @@
 class TripsController < ApplicationController
   before_action :logged_in_user
   before_action :find_trip, :check_member, only: [:show]
-  layout "trip_layout", only: :show
 
   def index
     @trips = if params[:keyword]
@@ -32,9 +31,12 @@ class TripsController < ApplicationController
   def show
     @user = User.find_by id: @trip.user_id
 
-    return if @user
-    flash[:danger] = t "danger.find_user"
-    redirect_to root_url
+    if @user
+      render layout: "layouts/trip_layout"
+    else
+      flash[:danger] = t "danger.find_user"
+      redirect_to root_url
+    end
   end
 
   private
