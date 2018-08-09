@@ -774,8 +774,8 @@ section
 .intro_image
 {
 	position: absolute;
-  right: 0;
-  top: 0;
+  right: 0px;
+  top: 13px;
 }
 .intro_title
 {
@@ -790,6 +790,7 @@ section
 	font-weight: 600;
 	color: #929191;
 	margin-top: 60px;
+	padding-bottom: 200px;
 }
 .intro_button
 {

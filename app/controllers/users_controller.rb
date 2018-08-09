@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   layout "user_layout", except: [:new, :create]
 
   def index
-    @users = User.page(params[:page]).per Settings.paginate.per
+    @users = User.page(params[:page]).per Settings.paginate.per_user
   end
 
   def new

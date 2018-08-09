@@ -10,6 +10,7 @@ trip:
     maximum: 50
 paginate:
   per: 9
+  per_user: 8
 hastags:
   top: 10
 participation:
