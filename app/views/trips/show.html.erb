@@ -1,0 +1,10 @@
+<%= provide :title, @content %>
+<% if @content == "plant" %>
+  <div id="content-sidebar">
+    <%= @trip.plant %>
+  </div>
+<% elsif @content == "expense" %>
+  <div id="content-sidebar">
+    <%= @trip.expense %>
+  </div>
+<% end %>

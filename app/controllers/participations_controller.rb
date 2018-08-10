@@ -6,9 +6,8 @@ class ParticipationsController < ApplicationController
   before_action :check_delete, only: :destroy
 
   def index
-    @participations = @trip.participations.select_request
-                           .page(params[:page])
-                           .per Settings.paginate.per_page
+    @participations = @trip.participations.join_in
+                           .page(params[:page]).per Settings.paginate.per
   end
 
   def create

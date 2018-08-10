@@ -7,11 +7,11 @@ Rails.application.routes.draw do
     post "/login", to: "sessions#create"
     delete "/logout", to: "sessions#destroy"
     resources :users
-    resources :trips, only: [:new, :create, :index, :show] do
+    resources :trips, only: [:new, :create, :index, :show, :destroy] do
       resources :participations, only: [:create, :destroy, :index]
     end
     namespace :owner do
-      resources :trips, only: [:update, :destroy] do
+      resources :trips, only: [:update, :edit] do
         resources :participations,
           only: [:index, :create, :update, :destroy]
         resources :searchs, only: :index

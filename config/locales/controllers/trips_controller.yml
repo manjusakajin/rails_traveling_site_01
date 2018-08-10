@@ -2,3 +2,8 @@ en:
   create_success: "Create trip success"
   create_fail: "Create trip fail"
   not_member: "You not member of this trip"
+  delete_success: "Delete Success"
+  delete_fail: "Delete Fail"
+  can_not_delete: "You can not delete"
+  update_success: "Updated"
+  update_fail: "Update fail"

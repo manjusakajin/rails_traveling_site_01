@@ -10,7 +10,7 @@
   </div>
   <% if current_user.is_user? @trip.owner %>
     <div class="pull-right">
-      <%= link_to owner_trip_participation_path(participation),
+      <%= link_to owner_trip_participation_path(id: participation.id),
         method: :delete, data: {confirm: t("confirm_delete")} do %>
         <i class="fa fa-trash-o fa-2x fa-border"></i>
       <% end %>

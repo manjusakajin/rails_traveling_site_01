@@ -15,3 +15,6 @@ hastags:
   top: 10
 participation:
   picture_size: 150
+cols: 80
+time:
+  expired_time: 2

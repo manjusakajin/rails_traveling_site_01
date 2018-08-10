@@ -3,9 +3,9 @@ class Owner::ParticipationsController < Owner::ApplicationController
   before_action :find_user, only: :create
 
   def index
-    @participations = @trip.participations.select_request
+    @participations = @trip.participations.send_request
                            .page(params[:page])
-                           .per Settings.paginate.per_page
+                           .per Settings.paginate.per
   end
 
   def create
