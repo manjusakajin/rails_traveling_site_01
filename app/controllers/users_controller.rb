@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   load_and_authorize_resource param_method: :user_params
-  layout "user_layout", except: [:new, :create]
 
   def index
     @users = User.page(params[:page]).per Settings.paginate.per_user

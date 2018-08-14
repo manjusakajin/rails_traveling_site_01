@@ -3,6 +3,9 @@ User.transaction do
                email: "example@railstutorial.org",
                password: "foobar",
                password_confirmation: "foobar",
+               confirmation_token: "aaa",
+               confirmed_at: Time.now,
+               confirmation_sent_at: Time.now,
                admin: true)
 
   5.times do |n|

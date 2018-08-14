@@ -14,13 +14,82 @@
       </div>
     </div>
     <%= render "layouts/header" %>
-    <% flash.each do |message_type, message| %>
-      <%= content_tag :div, message,
-        class: "alert alert-#{message_type}" %>
-    <% end %>
-    <%= yield %>
-    <% if logged_in? %>
-    <% end %>
+
+    <div class="wrapper">
+      <% if user_signed_in? %>
+      <nav id="sidebar">
+        <div class="sidebar-header text-center">
+          <h2><strong><%= t "dashboard" %></strong></h2><br>
+          <h4><%= current_user.name %></h4>
+        </div>
+
+        <ul class="list-unstyled components">
+          <li class="active">
+            <%= link_to t("edit_profile"), edit_user_path(current_user) %>
+          </li>
+          <li>
+            <%= link_to t("reviews"), "#homeSubmenu1",
+              data: {toggle: "collapse"}, aria: {expanded: "false"},
+              class: "dropdown-toggle" %>
+            <ul class="collapse list-unstyled" id="homeSubmenu1">
+              <li>
+                <%= link_to t("create_review"), new_review_path %>
+              </li>
+              <li>
+                <%= link_to t("my_reviews"), reviews_path(field: :my_reviews) %>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <%= link_to t("trips"), "#homeSubmenu2",
+              data: {toggle: "collapse"}, aria: {expanded: "false"},
+              class: "dropdown-toggle" %>
+            <ul class="collapse list-unstyled" id="homeSubmenu2">
+              <li>
+                <%= link_to t("create_trips"), new_trip_path %>
+              </li>
+              <li>
+                <%= link_to t("my_trips"), "#" %>
+              </li>
+              <li>
+                <%= link_to t("my_request"), "#" %>
+              </li>
+            </ul>
+          </li>
+          <% if can? :manage, :all %>
+            <li>
+              <%= link_to t("management"), "#homeSubmenu3",
+                data: {toggle: "collapse"}, aria: {expanded: "false"},
+                class: "dropdown-toggle" %>
+              <ul class="collapse list-unstyled" id="homeSubmenu3">
+                <li>
+                  <%= link_to t("users_management"), users_path %>
+                </li>
+                <li>
+                  <%= link_to t("reviews_management"), reviews_path %>
+                </li>
+                <li>
+                  <%= link_to t("trips_management"), trips_path %>
+                </li>
+              </ul>
+            </li>
+          <% end %>
+        </ul>
+      </nav>
+      <% end %>
+
+    <div class="super_container" id="content">
+      <div id="content-sidebar">
+        <div id="successMessage">
+          <% flash.each do |message_type, message| %>
+            <%= content_tag :div, message,
+              class: "alert alert-#{message_type}" %>
+          <% end %>
+        </div>
+        <%= yield %>
+      </div>
+    </div>
+  </div>
     <%= render "layouts/footer" %>
   </body>
 </html>

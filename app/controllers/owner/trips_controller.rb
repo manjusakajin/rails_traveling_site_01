@@ -1,5 +1,5 @@
 class Owner::TripsController < ApplicationController
-  before_action :logged_in_user, :find_trip, :check_owner
+  before_action :find_trip, :check_owner
   layout "trip_layout", only: :edit
 
   def edit

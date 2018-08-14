@@ -2,7 +2,6 @@ class Ability
   include CanCan::Ability
 
   def initialize user
-    user ||= User.new
     can :read, Review
     if user.present?
       can :update, User, id: user.id

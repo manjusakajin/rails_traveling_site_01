@@ -28,14 +28,19 @@
           <i class="fa fa-comment-o"></i>
           <%= pluralize review.comments.count, t("comment") %>
         </li>
-        <li class="blog_post_meta_item">
-          <% if logged_in? %>
-            <% if can? :destroy, review %>
-              <%= link_to t("delete"), review, method: :delete,
-                data: {confirm: t("confirm_delete")} %>
-            <% end %>
+        <% if user_signed_in? %>
+          <% if can? :destroy, review %>
+            <li class="blog_post_meta_item">
+            <%= link_to t("delete"), review, method: :delete,
+              data: {confirm: t("confirm_delete")} %>
+            </li>
           <% end %>
-        </li>
+          <% if can? :update, review %>
+            <li class="blog_post_meta_item">
+            <%= link_to t("edit"), edit_review_path(review) %>
+            </li>
+          <% end %>
+        <% end %>
       </ul>
     </div>
 

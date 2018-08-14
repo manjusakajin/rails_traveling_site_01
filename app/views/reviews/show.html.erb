@@ -21,6 +21,33 @@
               </div>
             </div>
 
+            <div class="blog_post_meta">
+              <ul>
+                <li class="blog_post_meta_item">
+                  <i class="fa fa-user-o"></i>
+                  <%= t "by" %>
+                  <%= link_to @review.user.name, "#" %>
+                </li>
+                <li class="blog_post_meta_item">
+                  <i class="fa fa-comment-o"></i>
+                  <%= pluralize @review.comments.count, t("comment") %>
+                </li>
+                <% if user_signed_in? %>
+                  <% if can? :destroy, @review %>
+                    <li class="blog_post_meta_item">
+                    <%= link_to t("delete"), @review, method: :delete,
+                      data: {confirm: t("confirm_delete")} %>
+                    </li>
+                  <% end %>
+                  <% if can? :update, @review %>
+                    <li class="blog_post_meta_item">
+                    <%= link_to t("edit"), edit_review_path(@review) %>
+                    </li>
+                  <% end %>
+                <% end %>
+              </ul>
+            </div>
+
             <div class="blog_post_text">
               <p><%= @review.content.html_safe %></p>
             </div>
@@ -29,7 +56,7 @@
           <ul class="comment-errors"></ul>
           <div class="blog-comment">
             <h2><%= t "comment" %></h2>
-            <% if logged_in? %>
+            <% if user_signed_in? %>
               <div class="pb-cmnt-container">
                 <%= form_for :comment,
                   url: review_comments_path(:review_id => @review.id),
