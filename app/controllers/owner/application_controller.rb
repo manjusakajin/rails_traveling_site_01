@@ -1,7 +1,7 @@
 class Owner::ApplicationController < ApplicationController
-  before_action :logged_in_user, :find_trip, :check_owner
+  before_action :authenticate_user!
+  before_action :find_trip, :check_owner
 
-  private
   def find_trip
     @trip = Trip.find_by id: params[:trip_id]
 

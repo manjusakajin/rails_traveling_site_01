@@ -1,26 +1,20 @@
 /* JS Document */
 
 /******************************
-
 [Table of Contents]
-
 1. Vars and Inits
 2. Set Header
 3. Init Menu
 4. Init Stats
 5. Initialize Milestones
 6. Init Search Form
-
-
 ******************************/
 
 $(document).ready(function()
 {
 
 	/*
-
 	1. Vars and Inits
-
 	*/
 
 	var menu = $('.menu');
@@ -46,9 +40,7 @@ $(document).ready(function()
 	initSearchForm();
 
 	/*
-
 	2. Set Header
-
 	*/
 
 	function setHeader()
@@ -82,9 +74,7 @@ $(document).ready(function()
 	}
 
 	/*
-
 	3. Init Menu
-
 	*/
 
 	function initMenu()
@@ -135,9 +125,7 @@ $(document).ready(function()
 	}
 
 	/*
-
 	4. Init Stats
-
 	*/
 
 	function initStats()
@@ -200,9 +188,7 @@ $(document).ready(function()
 	}
 
 	/*
-
 	5. Initialize Milestones
-
 	*/
 
 	function initMilestones()
@@ -256,9 +242,7 @@ $(document).ready(function()
 	}
 
 	/*
-
 	6. Init Search Form
-
 	*/
 
 	function initSearchForm()

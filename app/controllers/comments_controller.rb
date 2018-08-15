@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :logged_in_user, :find_commentable
+  before_action :authenticate_user!, :find_commentable
   before_action :find_comment, only: [:update, :destroy]
   before_action :correct_user, only: [:edit, :update, :destroy]
 

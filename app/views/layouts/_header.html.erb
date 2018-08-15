@@ -21,6 +21,7 @@
                 <li>
               </ul>
             <% else %>
+            <%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path %>
               <div class="user_box_login user_box_link">
                 <%= link_to t("login"), new_user_session_path,
                   remote: true, data:

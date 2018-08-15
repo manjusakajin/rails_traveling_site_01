@@ -1,9 +1,7 @@
 /* JS Document */
 
 /******************************
-
 [Table of Contents]
-
 1. Vars and Inits
 2. Set Header
 3. Init Home Slider
@@ -12,17 +10,13 @@
 6. Init CTA Slider
 7. Init Testimonials Slider
 8. Init Search Form
-
-
 ******************************/
 
 $(document).ready(function()
 {
 
 	/*
-
 	1. Vars and Inits
-
 	*/
 
 	var menu = $('.menu');
@@ -50,9 +44,7 @@ $(document).ready(function()
 	initSearchForm();
 
 	/*
-
 	2. Set Header
-
 	*/
 
 	function setHeader()
@@ -86,9 +78,7 @@ $(document).ready(function()
 	}
 
 	/*
-
 	3. Init Home Slider
-
 	*/
 
 	function initHomeSlider()
@@ -183,9 +173,7 @@ $(document).ready(function()
 	}
 
 	/*
-
 	4. Init Menu
-
 	*/
 
 	function initMenu()
@@ -236,9 +224,7 @@ $(document).ready(function()
 	}
 
 	/*
-
 	5. Init Search
-
 	*/
 
 	function initSearch()
@@ -259,9 +245,7 @@ $(document).ready(function()
 	}
 
 	/*
-
 	6. Init CTA Slider
-
 	*/
 
 	function initCtaSlider()
@@ -304,9 +288,7 @@ $(document).ready(function()
 	}
 
 	/*
-
 	7. Init Testimonials Slider
-
 	*/
 
 	function initTestSlider()
@@ -355,9 +337,7 @@ $(document).ready(function()
 	}
 
 	/*
-
 	8. Init Search Form
-
 	*/
 
 	function initSearchForm()
