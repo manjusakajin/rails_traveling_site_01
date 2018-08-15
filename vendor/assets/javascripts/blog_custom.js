@@ -1,30 +1,6 @@
 $(document).ready(function() {
   "use strict";
 
-  CKEDITOR.config.height = 800;
-  CKEDITOR.config.image_previewText = "Image Preview";
-  CKEDITOR.on( 'dialogDefinition', function(ev){
-      var dialogName = ev.data.name;
-      var dialogDefinition = ev.data.definition;
-
-      if (dialogName == 'link')
-      {
-        dialogDefinition.removeContents('advanced');
-        dialogDefinition.removeContents('target');
-      }
-
-      if (dialogName == 'image')
-      {
-        dialogDefinition.removeContents('Link');
-        dialogDefinition.removeContents('Upload');
-        dialogDefinition.removeContents('Advanced');
-      }
-      if (dialogName == 'flash')
-      {
-        dialogDefinition.removeContents('advanced');
-      }
-    });
-
   var menu = $('.menu');
   var menuActive = false;
   var header = $('.header');

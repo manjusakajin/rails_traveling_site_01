@@ -2,7 +2,7 @@ $(document).on('turbolinks:load', function() {
   submitNewMessage();
 });
 
-function submitNewMessage(){
+submitNewMessage = function(){
   $('textarea#message_content').keydown(function(event) {
     if (event.keyCode == 13) {
         $('[data-send="message"]').click();
@@ -13,12 +13,12 @@ function submitNewMessage(){
 }
 
 $(function(){
-  $("#addClass").click(function () {
+  $(document).on("click", "#addClass", function(){
     $('#qnimate').addClass('popup-box-on');
     $("#scroll").scrollTop($("#scroll")[0].scrollHeight);
   });
 
-  $("#removeClass").click(function () {
+  $(document).on("click", "#removeClass", function(){
     $('#qnimate').removeClass('popup-box-on');
   });
 })

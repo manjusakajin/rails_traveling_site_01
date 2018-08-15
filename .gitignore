@@ -29,12 +29,12 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
+app/assets/images
+
 # Ignore application configuration
 /config/application.yml
 
 /config/database.yml
-
-app/assets/images/
 
 config/settings.local.yml
 config/settings/*.local.yml

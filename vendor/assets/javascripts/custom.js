@@ -1,9 +1,7 @@
 /* JS Document */
 
 /******************************
-
 [Table of Contents]
-
 1. Vars and Inits
 2. Set Header
 3. Init Home Slider
@@ -12,18 +10,13 @@
 6. Init CTA Slider
 7. Init Testimonials Slider
 8. Init Search Form
-
-
 ******************************/
 
 $(document).ready(function()
 {
-	"use strict";
 
-	/* 
-
+	/*
 	1. Vars and Inits
-
 	*/
 
 	var menu = $('.menu');
@@ -50,10 +43,8 @@ $(document).ready(function()
 	initTestSlider();
 	initSearchForm();
 
-	/* 
-
+	/*
 	2. Set Header
-
 	*/
 
 	function setHeader()
@@ -86,10 +77,8 @@ $(document).ready(function()
 		}
 	}
 
-	/* 
-
+	/*
 	3. Init Home Slider
-
 	*/
 
 	function initHomeSlider()
@@ -144,7 +133,7 @@ $(document).ready(function()
 			{
 				$('.home_slider_custom_dot').removeClass('active');
 				$('.home_slider_custom_dots li').eq(event.page.index).addClass('active');
-			});	
+			});
 
 			// add animate.css class(es) to the elements to be animated
 			function setAnimation ( _elem, _InOut )
@@ -183,10 +172,8 @@ $(document).ready(function()
 		}
 	}
 
-	/* 
-
+	/*
 	4. Init Menu
-
 	*/
 
 	function initMenu()
@@ -220,7 +207,7 @@ $(document).ready(function()
 				}
 			});
 
-	
+
 		}
 	}
 
@@ -236,10 +223,8 @@ $(document).ready(function()
 		menuActive = false;
 	}
 
-	/* 
-
+	/*
 	5. Init Search
-
 	*/
 
 	function initSearch()
@@ -259,10 +244,8 @@ $(document).ready(function()
 		}
 	}
 
-	/* 
-
+	/*
 	6. Init CTA Slider
-
 	*/
 
 	function initCtaSlider()
@@ -304,10 +287,8 @@ $(document).ready(function()
 		}
 	}
 
-	/* 
-
+	/*
 	7. Init Testimonials Slider
-
 	*/
 
 	function initTestSlider()
@@ -355,10 +336,8 @@ $(document).ready(function()
 		}
 	}
 
-	/* 
-
+	/*
 	8. Init Search Form
-
 	*/
 
 	function initSearchForm()
@@ -396,7 +375,7 @@ $(document).ready(function()
 					searchForm.removeClass('active');
 					searchActive = false;
 				}
-			});	
+			});
 		}
 	}
 });

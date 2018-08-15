@@ -1,33 +1,25 @@
 /* JS Document */
 
 /******************************
-
 [Table of Contents]
-
 1. Vars and Inits
 2. Set Header
 3. Init Menu
 4. Init Stats
 5. Initialize Milestones
 6. Init Search Form
-
-
 ******************************/
 
 $(document).ready(function()
 {
-	"use strict";
 
-	/* 
-
+	/*
 	1. Vars and Inits
-
 	*/
 
 	var menu = $('.menu');
 	var menuActive = false;
 	var header = $('.header');
-	var ctrl = new ScrollMagic.Controller();
 	var searchActive = false;
 
 	setHeader();
@@ -47,10 +39,8 @@ $(document).ready(function()
 	initMilestones();
 	initSearchForm();
 
-	/* 
-
+	/*
 	2. Set Header
-
 	*/
 
 	function setHeader()
@@ -83,10 +73,8 @@ $(document).ready(function()
 		}
 	}
 
-	/* 
-
+	/*
 	3. Init Menu
-
 	*/
 
 	function initMenu()
@@ -120,7 +108,7 @@ $(document).ready(function()
 				}
 			});
 
-	
+
 		}
 	}
 
@@ -136,10 +124,8 @@ $(document).ready(function()
 		menuActive = false;
 	}
 
-	/* 
-
+	/*
 	4. Init Stats
-
 	*/
 
 	function initStats()
@@ -201,10 +187,8 @@ $(document).ready(function()
 		}
 	}
 
-	/* 
-
+	/*
 	5. Initialize Milestones
-
 	*/
 
 	function initMilestones()
@@ -245,23 +229,20 @@ $(document).ready(function()
 		    		var counterTween = TweenMax.to(counter, 4,
 		    		{
 		    			value: endValue,
-		    			roundProps:"value", 
-						ease: Circ.easeOut, 
+		    			roundProps:"value",
+						ease: Circ.easeOut,
 						onUpdate:function()
 						{
 							document.getElementsByClassName('milestone_counter')[i].innerHTML = signBefore + counter.value + signAfter;
 						}
 		    		});
 		    	})
-			    .addTo(ctrl);
 	    	});
 		}
 	}
 
-	/* 
-
+	/*
 	6. Init Search Form
-
 	*/
 
 	function initSearchForm()
@@ -299,7 +280,7 @@ $(document).ready(function()
 					searchForm.removeClass('active');
 					searchActive = false;
 				}
-			});	
+			});
 		}
 	}
 });

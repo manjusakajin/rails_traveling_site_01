@@ -1,5 +1,5 @@
 class ParticipationsController < ApplicationController
-  before_action :logged_in_user
+  before_action :authenticate_user!
   before_action :find_trip, only: [:index, :create, :destroy]
   before_action :check_user, only: :create
   before_action :find_participation, only: :destroy

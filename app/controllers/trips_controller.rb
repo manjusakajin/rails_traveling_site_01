@@ -1,7 +1,7 @@
 class TripsController < ApplicationController
-  before_action :logged_in_user
+  before_action :authenticate_user!
   before_action :find_trip, only:[:show, :destroy]
-  before_action :check_member, only:[:show]
+  before_action :check_member, only:[:show, :destroy]
   before_action :check_delete, only: [:destroy]
   layout "trip_layout", only: :show
 
@@ -13,7 +13,7 @@ class TripsController < ApplicationController
                Trip.search_trip(params[:keyword]).
                 page(params[:page]).per_page
              else
-               Trip.all.page(params[:page]).per_page
+              Trip.all.page(params[:page]).per_page
              end
   end
 

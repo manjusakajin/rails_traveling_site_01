@@ -5,8 +5,10 @@
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-<div class="modal-body">
-  <%= render yield(:modal_content)%>
+<div class="modal-body row">
+  <div class="col-md-10 offset-md-1">
+    <%= render yield(:modal_content)%>
+  </div>
 </div>
 <div class="modal-footer">
 </div>

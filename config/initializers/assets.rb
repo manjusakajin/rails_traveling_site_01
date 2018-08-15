@@ -16,4 +16,4 @@ Rails.application.config.assets.paths << Rails.root.join("node_modules")
 Rails.application.config.assets.precompile << proc{|path, fn| fn =~
   /vendor\/assets/ && !%w(.js .css).include?(File.extname(path))}
 
-Rails.application.config.assets.precompile += %w(ckeditor/config.js)
+Rails.application.config.assets.precompile += %w( ckeditor/* )
