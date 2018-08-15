@@ -12,6 +12,9 @@
 
 $(document).ready(function()
 {
+	"use strict";
+
+	/*
 
 	/*
 	1. Vars and Inits
@@ -40,6 +43,7 @@ $(document).ready(function()
 	initSearchForm();
 
 	/*
+
 	2. Set Header
 	*/
 
@@ -74,6 +78,7 @@ $(document).ready(function()
 	}
 
 	/*
+
 	3. Init Menu
 	*/
 
@@ -125,6 +130,7 @@ $(document).ready(function()
 	}
 
 	/*
+
 	4. Init Stats
 	*/
 
@@ -188,6 +194,7 @@ $(document).ready(function()
 	}
 
 	/*
+
 	5. Initialize Milestones
 	*/
 
@@ -242,6 +249,7 @@ $(document).ready(function()
 	}
 
 	/*
+
 	6. Init Search Form
 	*/
 

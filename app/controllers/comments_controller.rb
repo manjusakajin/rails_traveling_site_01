@@ -30,6 +30,8 @@ class CommentsController < ApplicationController
     end
   end
 
+  def edit; end
+
   def update
     @comment.update_attributes body: params[:comment][:body]
   end

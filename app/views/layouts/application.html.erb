@@ -19,8 +19,6 @@
         class: "alert alert-#{message_type}" %>
     <% end %>
     <%= yield %>
-    <% if logged_in? %>
-    <% end %>
     <%= render "layouts/footer" %>
   </body>
 </html>

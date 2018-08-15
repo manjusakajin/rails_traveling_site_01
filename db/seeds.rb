@@ -22,7 +22,3 @@ User.transaction do
     users.each {|user| user.reviews.create!(title:title, content: content)}
   end
 end
-
-5.times do |n|
-  Chatroom.create!(topic: "group#{n+1}", slug: "group#{n+1}")
-end

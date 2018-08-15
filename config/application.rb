@@ -22,6 +22,7 @@ module RailsTravelingSite01
     I18n.available_locales = [:en, :vi]
     I18n.default_locale = :en
     config.time_zone = "Asia/Bangkok"
+    config.force_ssl = true
     config.action_view.embed_authenticity_token_in_remote_forms = true
     config.autoload_paths += %w(#{config.root}/app/models/ckeditor)
   end
