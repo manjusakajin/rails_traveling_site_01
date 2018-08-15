@@ -3,13 +3,6 @@ module SessionsHelper
     session[:user_id] = user.id
   end
 
-  def current_user
-    user_id = session[:user_id]
-
-    return unless user_id
-    @current_user ||= User.find_by id: user_id
-  end
-
   def logged_in?
     current_user.present?
   end
