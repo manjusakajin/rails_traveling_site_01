@@ -69,7 +69,6 @@ Rails.application.configure do
     user_name: ENV["mail_username"],
     password: ENV["mail_password"],
     domain: "localhost:3000",
-    enable_starttls_auto: true
   }
 
   host = "localhost:3000"

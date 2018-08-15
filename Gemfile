@@ -34,6 +34,8 @@ gem "devise"
 gem "omniauth"
 gem "omniauth-twitter"
 gem "omniauth-facebook"
+gem 'social-share-button'
+
 
 gem 'rails_12factor', group: :production
 

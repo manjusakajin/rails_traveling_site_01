@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2018_08_17_092439) do
+=======
+ActiveRecord::Schema.define(version: 2018_08_10_071937) do
+>>>>>>> share
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -176,6 +180,7 @@ ActiveRecord::Schema.define(version: 2018_08_17_092439) do
   end
 
   add_foreign_key "chatrooms", "trips", column: "slug"
+  add_foreign_key "identities", "users"
   add_foreign_key "messages", "chatrooms"
   add_foreign_key "messages", "users"
 end

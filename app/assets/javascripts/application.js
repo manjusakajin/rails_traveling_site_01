@@ -22,5 +22,6 @@
 //= require blog_custom
 //= require cable
 //= require custom
+//= require social-share-button
 //= require sidebar
 //= require_tree .
