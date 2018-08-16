@@ -1,7 +1,7 @@
 class TripsController < ApplicationController
-  before_action :logged_in_user
+  before_action :authenticate_user!
   before_action :find_trip, only:[:show, :destroy]
-  before_action :check_member, only:[:show]
+  before_action :check_member, only:[:show, :destroy]
   before_action :check_delete, only: [:destroy]
   layout "trip_layout", only: :show
 
@@ -83,7 +83,7 @@ class TripsController < ApplicationController
   def check_delete
 
      return if current_user.is_user?(@trip.owner) || current_user.is_admin?
-     flash[:danger] = t "can not delete"
+     flash[:danger] = t "can_not_delete"
      redirect_to root_url
    end
 

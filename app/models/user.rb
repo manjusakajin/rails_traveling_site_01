@@ -1,4 +1,8 @@
 class User < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable, :confirmable,
+    :rememberable, :recoverable, :lockable
   include PgSearch
 
   before_save :downcase_email
@@ -26,8 +30,6 @@ class User < ApplicationRecord
     uniqueness: {case_sensitive: false}
   validates :password, presence: true,
     length: {minimum: Settings.user.password.minimum}, allow_nil: true
-
-  has_secure_password
 
   def is_user? user
     self == user
