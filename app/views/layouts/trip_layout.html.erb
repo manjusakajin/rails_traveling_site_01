@@ -63,7 +63,7 @@
             </li>
           </ul>
           <ul>
-            <% if current_user.is_user? @trip.owner %>
+            <% if can? :destroy, @trip %>
               <li><%= link_to t("delete_trip"), @trip, method: :delete,
                data: {confirm: t("confirm_delete")} %></li>
             <% else %>

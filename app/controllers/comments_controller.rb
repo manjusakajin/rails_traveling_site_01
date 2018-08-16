@@ -1,7 +1,6 @@
 class CommentsController < ApplicationController
-  before_action :logged_in_user, :find_commentable
-  before_action :find_comment, only: [:update, :destroy]
-  before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :find_commentable
+  load_and_authorize_resource param_method: :comment_params
 
   def new
     @comment = Comment.new
@@ -51,18 +50,5 @@ class CommentsController < ApplicationController
                    else
                      Review.find_by_id params[:review_id]
     end
-  end
-
-  def find_comment
-    @comment = Comment.find_by id: params[:id]
-
-    return if @comment
-    flash.now[:danger] = t "error.comment_not_found"
-    redirect_to reviews_url
-  end
-
-  def correct_user
-    @comment = current_user.comments.find_by id: params[:id]
-    redirect_to reviews_url unless @comment
   end
 end

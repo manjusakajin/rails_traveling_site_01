@@ -1,8 +1,5 @@
 class UsersController < ApplicationController
-  before_action :find_user, only: [:edit, :update, :destroy]
-  before_action :logged_in_user, except: [:new, :create]
-  before_action :correct_user, only: [:edit, :update]
-  before_action :admin_user, only: [:index, :destroy]
+  load_and_authorize_resource param_method: :user_params
   layout "user_layout", except: [:new, :create]
 
   def index
@@ -53,21 +50,5 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit :name, :email, :password,
       :password_confirmation
-  end
-
-  def find_user
-    @user = User.find_by id: params[:id]
-
-    return if @user
-    flash[:danger] = t "cant_find_user"
-    redirect_to request.referrer || root_url
-  end
-
-  def correct_user
-    redirect_to root_url unless @user.is_user? current_user
-  end
-
-  def admin_user
-    redirect_to root_url unless current_user.admin?
   end
 end

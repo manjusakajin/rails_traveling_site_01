@@ -1,17 +1,14 @@
 class TripsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :find_trip, only:[:show, :destroy]
-  before_action :check_member, only:[:show, :destroy]
-  before_action :check_delete, only: [:destroy]
+  load_and_authorize_resource param_method: :trip_params
   layout "trip_layout", only: :show
 
   def index
     @trips = if params[:user_id]
-               Kaminari.paginate_array(select_trips current_user.trips).
-                page(params[:page]).per Settings.paginate.per
+               Kaminari.paginate_array(select_trips(current_user.trips))
+                       .page(params[:page]).per Settings.paginate.per
              elsif params[:keyword]
-               Trip.search_trip(params[:keyword]).
-                page(params[:page]).per_page
+               Trip.search_trip(params[:keyword])
+                   .page(params[:page]).per_page
              else
                Trip.all.page(params[:page]).per_page
              end
@@ -60,38 +57,13 @@ class TripsController < ApplicationController
     my_trip = []
     trips.each do |trip|
       participation = current_user.participations.find_by trip_id: trip.id
-      if participation.join_in?
-        my_trip << trip
-      end
+      my_trip << trip if participation.join_in?
     end
-    return my_trip
+    my_trip
   end
 
   def trip_params
     params.require(:trip).permit :name, :user_id, :begin, :destination_id,
       place_attributes: [:name]
-  end
-
-  def find_trip
-    @trip = Trip.find_by id: params[:id]
-
-    return if @trip
-    flash[:danger] = t "danger.find_trip"
-    redirect_to root_url
-  end
-
-  def check_delete
-
-     return if current_user.is_user?(@trip.owner) || current_user.is_admin?
-     flash[:danger] = t "can_not_delete"
-     redirect_to root_url
-   end
-
-  def check_member
-    @participation = @trip.participations.find_by user_id: current_user.id
-
-    return if @participation&.join_in?
-    flash[:danger] = t "not_member"
-    redirect_to root_url
   end
 end

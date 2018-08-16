@@ -7,6 +7,7 @@ gem "bcrypt", "~> 3.1", ">= 3.1.12"
 gem "bootsnap", ">= 1.1.0", require: false
 gem "bootstrap", "~> 4.1.2"
 gem "bootstrap4-kaminari-views"
+gem "cancancan", "~> 2.0"
 gem "carrierwave", "1.2.2"
 gem "ckeditor"
 gem "ckeditor-imgur"
