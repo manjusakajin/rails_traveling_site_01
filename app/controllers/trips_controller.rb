@@ -3,12 +3,12 @@ class TripsController < ApplicationController
   layout "trip_layout", only: :show
 
   def index
+    @q = Trip.ransack(params[:q])
     @trips = if params[:user_id]
                Kaminari.paginate_array(select_trips(current_user.trips))
                        .page(params[:page]).per Settings.paginate.per
-             elsif params[:keyword]
-               Trip.search_trip(params[:keyword])
-                   .page(params[:page]).per_page
+             elsif @q
+               @q.result.page(params[:page]).per_page
              else
                Trip.all.page(params[:page]).per_page
              end
