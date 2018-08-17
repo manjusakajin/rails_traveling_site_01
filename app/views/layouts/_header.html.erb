@@ -2,10 +2,15 @@
   <div class="top_bar">
     <div class="container">
       <div class="row">
-        <div class="col d-flex flex-row">
+        <div class="col d-flex flex-ro">
+          <div class="phone">2556-808-8613</div>
           <div class="user_box ml-auto">
             <% if user_signed_in? %>
               <ul>
+                <div class="user_box_login user_box_link">
+                    <%= render_notifications_of current_user,
+                      index_content: :with_attributes %>
+                </div>
                 <% if current_user.admin? %>
                   <li class="user_box_login user_box_link">
                     <%= link_to t("dashboard"), users_path %>

@@ -31,14 +31,7 @@ class TripsController < ApplicationController
     if @trip.save
       flash[:success] = t "create_success"
       @trip.participations.create user: @trip.owner, accepted: :join_in
-<<<<<<< HEAD
-<<<<<<< HEAD
       @chatroom = Chatroom.create topic: @trip.name, slug: @trip.id
-=======
->>>>>>> check_request
-=======
-      @chatroom = Chatroom.create topic: @trip.name, slug: @trip.id
->>>>>>> delete_trip + out trip
       redirect_to @trip
     else
       flash[:danger] = t "create_fail"
@@ -47,26 +40,6 @@ class TripsController < ApplicationController
   end
 
   def show
-<<<<<<< HEAD
-    @chatroom = Chatroom.find_by slug: @trip.id
-    @messages = @chatroom.messages.page(params[:page])
-      .per Settings.paginate.mess_per
-    @message = Message.new
-    @user = @trip.owner
-  end
-
-<<<<<<< HEAD
-  def destroy
-    if @trip.destroy
-      flash[:success] = t "delete_success"
-    else
-      flash[:danger] = t "delete_fail"
-    end
-    redirect_to root_url
-=======
-    if @user
-      render layout: "layouts/trip_layout"
-=======
     @content = params[:content] || @trip.name
     @chatroom = Chatroom.find_by slug: @trip.id
     if @chatroom
@@ -79,15 +52,10 @@ class TripsController < ApplicationController
   def destroy
     if @trip.destroy
       flash[:success] = t "delete_success"
->>>>>>> delete_trip + out trip
     else
       flash[:danger] = t "delete_fail"
     end
-<<<<<<< HEAD
->>>>>>> check_request_2
-=======
     redirect_to root_url
->>>>>>> delete_trip + out trip
   end
 
   private
@@ -116,22 +84,6 @@ class TripsController < ApplicationController
     redirect_to root_url
   end
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-  def check_delete
-
-     return if current_user.is_user?(@trip.owner) || current_user.is_admin?
-     flash[:danger] = t "can_not_delete"
-     redirect_to root_url
-   end
-
-  def check_member
-    @participation = @trip.participations.find_by user_id: current_user.id
-
-    return if @participation&.join_in?
-    flash[:danger] = t "not_member"
-=======
-=======
   def check_delete
 
      return if current_user.is_user?(@trip.owner) || current_user.is_admin?
@@ -139,17 +91,11 @@ class TripsController < ApplicationController
      redirect_to root_url
    end
 
->>>>>>> delete_trip + out trip
   def check_member
     @participation = @trip.participations.find_by user_id: current_user.id
 
     return if @participation&.join_in?
-<<<<<<< HEAD
-    flash[:danger] = t "danger.not_member"
->>>>>>> check_request
-=======
     flash[:danger] = t "not_member"
->>>>>>> delete_trip + out trip
     redirect_to root_url
   end
 end

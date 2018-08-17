@@ -22,6 +22,8 @@ class User < ApplicationRecord
   pg_search_scope :search, against: [:name, :email],
     using: {tsearch: {any_word: true}}
 
+  acts_as_target
+
   scope :per_page, ->{per Settings.paginate.per}
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i

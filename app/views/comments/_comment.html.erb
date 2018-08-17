@@ -12,14 +12,14 @@
     <% if comment.commentable_type == "Review" %>
       <i class="pull-right">
         <small><button class="btn-sm btn-success button<%= comment.id %>">
-          <% if logged_in? %><%= t "Reply" %><% end %>
+          <% if user_signed_in? %><%= t "Reply" %><% end %>
         </button></small>
       </i>
     <% end %>
     <p id="comment_body<%= comment.id %>">
       <%= comment.body %>
     </p>
-    <% if logged_in? %>
+    <% if user_signed_in? %>
       <% if comment.user.is_user? current_user %>
         <td><%= link_to t("edit"), edit_comment_path(comment), remote: true,
           class: "btn btn-warning" %></td>
@@ -36,7 +36,7 @@
         <div class="reply_form<%= comment.id %>">
         </div>
       <% end %>
-    <% if logged_in? %>
+    <% if user_signed_in? %>
       <script type="text/javascript">
         $(document).on("click",".button<%= comment.id %>",function(){
           $(".reply_form<%= comment.id %>").html("<%=j render partial: 'comments/form', locals: {:comment => comment} %>")

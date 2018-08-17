@@ -8,7 +8,7 @@
       <li><h2><%= participation.user.name %></h2></li>
     </ul>
   </div>
-  <% if logged_in? %>
+  <% if user_signed_in? %>
     <div class="col-md-5" id="send_request_button">
       <%= button_to t("accept"),
         owner_trip_participation_path(id: participation), method: :patch,

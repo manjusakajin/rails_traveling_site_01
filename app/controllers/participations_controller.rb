@@ -46,7 +46,6 @@ class ParticipationsController < ApplicationController
     flash[:danger] = t "danger.check_user"
     redirect_to root_url
   end
-<<<<<<< HEAD
 
   def check_delete
     user = @participation.user
@@ -58,49 +57,6 @@ class ParticipationsController < ApplicationController
 
   def find_participation
     @participation = current_user.participations.find_by trip_id: @trip.id
-
-    return if @participation
-    flash[:danger] = t "find_part"
-    redirect_to root_url
-  end
-
-  def check_delete
-    user = @participation.user
-    if user.is_user? @trip.owner
-      flash[:danger] = t "danger.out_group"
-      redirect_to request.referrer
-    else
-      unless current_user.is_user?(user) ||
-        current_user.is_user?(@trip.owner)
-        flash[:danger] = t "danger.out_group"
-        redirect_to request.referre
-      end
-    end
-  end
-
-  def find_participation
-    if params[:user_id]
-      user = User.find_by id: params[:user_id]
-    end
-    @participation = if params[:id]
-                       Participation.find_by id: params[:id]
-                     elsif params[:user_id]
-                       user.particications.
-                        find_by trip_id: params[:trip_id]
-                     end
-=======
-
-  def check_delete
-    user = @participation.user
-    if user.is_user?(@trip.owner) || !current_user.is_user?(user)
-      flash[:danger] = t "danger.out_group"
-      redirect_to request.referrer
-    end
-  end
-
-  def find_participation
-    @participation = current_user.participations.find_by trip_id: @trip.id
->>>>>>> check_request
 
     return if @participation
     flash[:danger] = t "find_part"

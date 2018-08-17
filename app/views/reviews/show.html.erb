@@ -28,7 +28,7 @@
             <ul class="comment-errors"></ul>
             <div class="blog-comment">
               <h2><%= t "comment" %></h2>
-              <% if logged_in? %>
+              <% if user_signed_in? %>
               <div class="pb-cmnt-container">
                 <%= form_for :comment,
                   url: review_comments_path(:review_id => @review.id),

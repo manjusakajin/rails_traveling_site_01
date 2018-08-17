@@ -12,7 +12,7 @@
     <% if comment.commentable_type == "Review" %>
       <i class="pull-right">
         <small><button class="btn-sm btn-success button<%= comment.id %>">
-          <% if logged_in? %><%= t "Reply" %><% end %>
+          <% if user_signed_in? %><%= t "Reply" %><% end %>
         </button></small>
       </i>
     <% end %>
@@ -26,7 +26,7 @@
         <div class="reply_form<%= comment.id %>">
         </div>
       <% end %>
-      <% if logged_in? %>
+      <% if user_signed_in? %>
         <script type="text/javascript">
           $(document).on("click",".button<%= comment.id %>",function(){
             if ( $("#user_review").val() === undefined ){
@@ -40,4 +40,3 @@
       <% end %>
   </div>
 </li>
-

@@ -1,5 +1,6 @@
 SET statement_timeout = 0;
 SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
@@ -103,7 +104,6 @@ ALTER SEQUENCE public.chatrooms_id_seq OWNED BY public.chatrooms.id;
 
 
 --
-<<<<<<< HEAD
 -- Name: ckeditor_assets; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -142,8 +142,6 @@ ALTER SEQUENCE public.ckeditor_assets_id_seq OWNED BY public.ckeditor_assets.id;
 
 
 --
-=======
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 -- Name: comments; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -242,6 +240,39 @@ ALTER SEQUENCE public.hastags_id_seq OWNED BY public.hastags.id;
 
 
 --
+-- Name: identities; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.identities (
+    id bigint NOT NULL,
+    user_id bigint,
+    provider character varying,
+    uid character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: identities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.identities_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: identities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.identities_id_seq OWNED BY public.identities.id;
+
+
+--
 -- Name: messages; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -280,8 +311,18 @@ ALTER SEQUENCE public.messages_id_seq OWNED BY public.messages.id;
 
 CREATE TABLE public.notifications (
     id bigint NOT NULL,
-    trip_id integer,
-    event character varying,
+    target_type character varying NOT NULL,
+    target_id bigint NOT NULL,
+    notifiable_type character varying NOT NULL,
+    notifiable_id bigint NOT NULL,
+    key character varying NOT NULL,
+    group_type character varying,
+    group_id bigint,
+    group_owner_id integer,
+    notifier_type character varying,
+    notifier_id bigint,
+    parameters text,
+    opened_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -384,10 +425,7 @@ CREATE TABLE public.places (
     lat double precision,
     lng double precision,
     is_deleted boolean,
-<<<<<<< HEAD
     checkin_count integer DEFAULT 0,
-=======
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -487,6 +525,46 @@ CREATE TABLE public.schema_migrations (
 
 
 --
+-- Name: subscriptions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.subscriptions (
+    id bigint NOT NULL,
+    target_type character varying NOT NULL,
+    target_id bigint NOT NULL,
+    key character varying NOT NULL,
+    subscribing boolean DEFAULT true NOT NULL,
+    subscribing_to_email boolean DEFAULT true NOT NULL,
+    subscribed_at timestamp without time zone,
+    unsubscribed_at timestamp without time zone,
+    subscribed_to_email_at timestamp without time zone,
+    unsubscribed_to_email_at timestamp without time zone,
+    optional_targets text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: subscriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.subscriptions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: subscriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.subscriptions_id_seq OWNED BY public.subscriptions.id;
+
+
+--
 -- Name: trips; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -528,23 +606,7 @@ ALTER SEQUENCE public.trips_id_seq OWNED BY public.trips.id;
 CREATE TABLE public.users (
     id bigint NOT NULL,
     name character varying,
-<<<<<<< HEAD
-=======
-    password_digest character varying,
-    is_admin boolean,
-    email character varying,
-    is_actived boolean DEFAULT false,
-    is_deleted boolean,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
     admin boolean DEFAULT false,
-    remember_digest character varying,
-    activation_digest character varying,
-    activated_at timestamp without time zone,
-    reset_digest character varying,
-<<<<<<< HEAD
-    reset_sent_at timestamp without time zone,
     email character varying DEFAULT ''::character varying NOT NULL,
     encrypted_password character varying DEFAULT ''::character varying NOT NULL,
     reset_password_token character varying,
@@ -563,9 +625,6 @@ CREATE TABLE public.users (
     locked_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
-=======
-    reset_sent_at timestamp without time zone
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 );
 
 
@@ -589,29 +648,20 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
-<<<<<<< HEAD
 -- Name: abcs id; Type: DEFAULT; Schema: public; Owner: -
-=======
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 --
 
 ALTER TABLE ONLY public.abcs ALTER COLUMN id SET DEFAULT nextval('public.abcs_id_seq'::regclass);
 
 
 --
-<<<<<<< HEAD
 -- Name: chatrooms id; Type: DEFAULT; Schema: public; Owner: -
-=======
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 --
 
 ALTER TABLE ONLY public.chatrooms ALTER COLUMN id SET DEFAULT nextval('public.chatrooms_id_seq'::regclass);
 
 
 --
-<<<<<<< HEAD
 -- Name: ckeditor_assets id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -620,141 +670,104 @@ ALTER TABLE ONLY public.ckeditor_assets ALTER COLUMN id SET DEFAULT nextval('pub
 
 --
 -- Name: comments id; Type: DEFAULT; Schema: public; Owner: -
-=======
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 --
 
 ALTER TABLE ONLY public.comments ALTER COLUMN id SET DEFAULT nextval('public.comments_id_seq'::regclass);
 
 
 --
-<<<<<<< HEAD
 -- Name: hastag_posts id; Type: DEFAULT; Schema: public; Owner: -
-=======
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 --
 
 ALTER TABLE ONLY public.hastag_posts ALTER COLUMN id SET DEFAULT nextval('public.hastag_posts_id_seq'::regclass);
 
 
 --
-<<<<<<< HEAD
 -- Name: hastags id; Type: DEFAULT; Schema: public; Owner: -
-=======
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 --
 
 ALTER TABLE ONLY public.hastags ALTER COLUMN id SET DEFAULT nextval('public.hastags_id_seq'::regclass);
 
 
 --
-<<<<<<< HEAD
+-- Name: identities id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.identities ALTER COLUMN id SET DEFAULT nextval('public.identities_id_seq'::regclass);
+
+
+--
 -- Name: messages id; Type: DEFAULT; Schema: public; Owner: -
-=======
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 --
 
 ALTER TABLE ONLY public.messages ALTER COLUMN id SET DEFAULT nextval('public.messages_id_seq'::regclass);
 
 
 --
-<<<<<<< HEAD
 -- Name: notifications id; Type: DEFAULT; Schema: public; Owner: -
-=======
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 --
 
 ALTER TABLE ONLY public.notifications ALTER COLUMN id SET DEFAULT nextval('public.notifications_id_seq'::regclass);
 
 
 --
-<<<<<<< HEAD
 -- Name: participations id; Type: DEFAULT; Schema: public; Owner: -
-=======
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 --
 
 ALTER TABLE ONLY public.participations ALTER COLUMN id SET DEFAULT nextval('public.participations_id_seq'::regclass);
 
 
 --
-<<<<<<< HEAD
 -- Name: pg_search_documents id; Type: DEFAULT; Schema: public; Owner: -
-=======
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 --
 
 ALTER TABLE ONLY public.pg_search_documents ALTER COLUMN id SET DEFAULT nextval('public.pg_search_documents_id_seq'::regclass);
 
 
 --
-<<<<<<< HEAD
 -- Name: places id; Type: DEFAULT; Schema: public; Owner: -
-=======
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 --
 
 ALTER TABLE ONLY public.places ALTER COLUMN id SET DEFAULT nextval('public.places_id_seq'::regclass);
 
 
 --
-<<<<<<< HEAD
 -- Name: plants id; Type: DEFAULT; Schema: public; Owner: -
-=======
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 --
 
 ALTER TABLE ONLY public.plants ALTER COLUMN id SET DEFAULT nextval('public.plants_id_seq'::regclass);
 
 
 --
-<<<<<<< HEAD
 -- Name: reviews id; Type: DEFAULT; Schema: public; Owner: -
-=======
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 --
 
 ALTER TABLE ONLY public.reviews ALTER COLUMN id SET DEFAULT nextval('public.reviews_id_seq'::regclass);
 
 
 --
-<<<<<<< HEAD
+-- Name: subscriptions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.subscriptions ALTER COLUMN id SET DEFAULT nextval('public.subscriptions_id_seq'::regclass);
+
+
+--
 -- Name: trips id; Type: DEFAULT; Schema: public; Owner: -
-=======
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 --
 
 ALTER TABLE ONLY public.trips ALTER COLUMN id SET DEFAULT nextval('public.trips_id_seq'::regclass);
 
 
 --
-<<<<<<< HEAD
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
-=======
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 --
 
 ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
 
 
 --
-<<<<<<< HEAD
 -- Name: abcs abcs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
-=======
--- Name: abcs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 --
 
 ALTER TABLE ONLY public.abcs
@@ -762,11 +775,7 @@ ALTER TABLE ONLY public.abcs
 
 
 --
-<<<<<<< HEAD
 -- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
-=======
--- Name: ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 --
 
 ALTER TABLE ONLY public.ar_internal_metadata
@@ -774,11 +783,7 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 
 --
-<<<<<<< HEAD
 -- Name: chatrooms chatrooms_pkey; Type: CONSTRAINT; Schema: public; Owner: -
-=======
--- Name: chatrooms_pkey; Type: CONSTRAINT; Schema: public; Owner: -
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 --
 
 ALTER TABLE ONLY public.chatrooms
@@ -786,7 +791,6 @@ ALTER TABLE ONLY public.chatrooms
 
 
 --
-<<<<<<< HEAD
 -- Name: ckeditor_assets ckeditor_assets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -796,9 +800,6 @@ ALTER TABLE ONLY public.ckeditor_assets
 
 --
 -- Name: comments comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
-=======
--- Name: comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 --
 
 ALTER TABLE ONLY public.comments
@@ -806,11 +807,7 @@ ALTER TABLE ONLY public.comments
 
 
 --
-<<<<<<< HEAD
 -- Name: hastag_posts hastag_posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
-=======
--- Name: hastag_posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 --
 
 ALTER TABLE ONLY public.hastag_posts
@@ -818,11 +815,7 @@ ALTER TABLE ONLY public.hastag_posts
 
 
 --
-<<<<<<< HEAD
 -- Name: hastags hastags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
-=======
--- Name: hastags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 --
 
 ALTER TABLE ONLY public.hastags
@@ -830,11 +823,15 @@ ALTER TABLE ONLY public.hastags
 
 
 --
-<<<<<<< HEAD
+-- Name: identities identities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.identities
+    ADD CONSTRAINT identities_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: messages messages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
-=======
--- Name: messages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 --
 
 ALTER TABLE ONLY public.messages
@@ -842,11 +839,7 @@ ALTER TABLE ONLY public.messages
 
 
 --
-<<<<<<< HEAD
 -- Name: notifications notifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
-=======
--- Name: notifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 --
 
 ALTER TABLE ONLY public.notifications
@@ -854,11 +847,7 @@ ALTER TABLE ONLY public.notifications
 
 
 --
-<<<<<<< HEAD
 -- Name: participations participations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
-=======
--- Name: participations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 --
 
 ALTER TABLE ONLY public.participations
@@ -866,11 +855,7 @@ ALTER TABLE ONLY public.participations
 
 
 --
-<<<<<<< HEAD
 -- Name: pg_search_documents pg_search_documents_pkey; Type: CONSTRAINT; Schema: public; Owner: -
-=======
--- Name: pg_search_documents_pkey; Type: CONSTRAINT; Schema: public; Owner: -
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 --
 
 ALTER TABLE ONLY public.pg_search_documents
@@ -878,11 +863,7 @@ ALTER TABLE ONLY public.pg_search_documents
 
 
 --
-<<<<<<< HEAD
 -- Name: places places_pkey; Type: CONSTRAINT; Schema: public; Owner: -
-=======
--- Name: places_pkey; Type: CONSTRAINT; Schema: public; Owner: -
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 --
 
 ALTER TABLE ONLY public.places
@@ -890,11 +871,7 @@ ALTER TABLE ONLY public.places
 
 
 --
-<<<<<<< HEAD
 -- Name: plants plants_pkey; Type: CONSTRAINT; Schema: public; Owner: -
-=======
--- Name: plants_pkey; Type: CONSTRAINT; Schema: public; Owner: -
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 --
 
 ALTER TABLE ONLY public.plants
@@ -902,11 +879,7 @@ ALTER TABLE ONLY public.plants
 
 
 --
-<<<<<<< HEAD
 -- Name: reviews reviews_pkey; Type: CONSTRAINT; Schema: public; Owner: -
-=======
--- Name: reviews_pkey; Type: CONSTRAINT; Schema: public; Owner: -
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 --
 
 ALTER TABLE ONLY public.reviews
@@ -914,11 +887,7 @@ ALTER TABLE ONLY public.reviews
 
 
 --
-<<<<<<< HEAD
 -- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
-=======
--- Name: schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 --
 
 ALTER TABLE ONLY public.schema_migrations
@@ -926,11 +895,15 @@ ALTER TABLE ONLY public.schema_migrations
 
 
 --
-<<<<<<< HEAD
+-- Name: subscriptions subscriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.subscriptions
+    ADD CONSTRAINT subscriptions_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: trips trips_pkey; Type: CONSTRAINT; Schema: public; Owner: -
-=======
--- Name: trips_pkey; Type: CONSTRAINT; Schema: public; Owner: -
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 --
 
 ALTER TABLE ONLY public.trips
@@ -938,11 +911,7 @@ ALTER TABLE ONLY public.trips
 
 
 --
-<<<<<<< HEAD
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
-=======
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 --
 
 ALTER TABLE ONLY public.users
@@ -950,7 +919,6 @@ ALTER TABLE ONLY public.users
 
 
 --
-<<<<<<< HEAD
 -- Name: idx_ckeditor_assetable; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -965,12 +933,17 @@ CREATE INDEX idx_ckeditor_assetable_type ON public.ckeditor_assets USING btree (
 
 
 --
-=======
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 -- Name: index_abcs_on_commentable_type_and_commentable_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_abcs_on_commentable_type_and_commentable_id ON public.abcs USING btree (commentable_type, commentable_id);
+
+
+--
+-- Name: index_identities_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_identities_on_user_id ON public.identities USING btree (user_id);
 
 
 --
@@ -988,6 +961,41 @@ CREATE INDEX index_messages_on_user_id ON public.messages USING btree (user_id);
 
 
 --
+-- Name: index_notifications_on_group_owner_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_notifications_on_group_owner_id ON public.notifications USING btree (group_owner_id);
+
+
+--
+-- Name: index_notifications_on_group_type_and_group_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_notifications_on_group_type_and_group_id ON public.notifications USING btree (group_type, group_id);
+
+
+--
+-- Name: index_notifications_on_notifiable_type_and_notifiable_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_notifications_on_notifiable_type_and_notifiable_id ON public.notifications USING btree (notifiable_type, notifiable_id);
+
+
+--
+-- Name: index_notifications_on_notifier_type_and_notifier_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_notifications_on_notifier_type_and_notifier_id ON public.notifications USING btree (notifier_type, notifier_id);
+
+
+--
+-- Name: index_notifications_on_target_type_and_target_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_notifications_on_target_type_and_target_id ON public.notifications USING btree (target_type, target_id);
+
+
+--
 -- Name: index_pg_search_documents_on_searchable_type_and_searchable_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -995,7 +1003,27 @@ CREATE INDEX index_pg_search_documents_on_searchable_type_and_searchable_id ON p
 
 
 --
-<<<<<<< HEAD
+-- Name: index_subscriptions_on_key; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_subscriptions_on_key ON public.subscriptions USING btree (key);
+
+
+--
+-- Name: index_subscriptions_on_target_type_and_target_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_subscriptions_on_target_type_and_target_id ON public.subscriptions USING btree (target_type, target_id);
+
+
+--
+-- Name: index_subscriptions_on_target_type_and_target_id_and_key; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_subscriptions_on_target_type_and_target_id_and_key ON public.subscriptions USING btree (target_type, target_id, key);
+
+
+--
 -- Name: index_users_on_confirmation_token; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1018,9 +1046,6 @@ CREATE UNIQUE INDEX index_users_on_reset_password_token ON public.users USING bt
 
 --
 -- Name: messages fk_rails_273a25a7a6; Type: FK CONSTRAINT; Schema: public; Owner: -
-=======
--- Name: fk_rails_273a25a7a6; Type: FK CONSTRAINT; Schema: public; Owner: -
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 --
 
 ALTER TABLE ONLY public.messages
@@ -1028,11 +1053,15 @@ ALTER TABLE ONLY public.messages
 
 
 --
-<<<<<<< HEAD
+-- Name: identities fk_rails_5373344100; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.identities
+    ADD CONSTRAINT fk_rails_5373344100 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- Name: messages fk_rails_5d3b5a27f5; Type: FK CONSTRAINT; Schema: public; Owner: -
-=======
--- Name: fk_rails_5d3b5a27f5; Type: FK CONSTRAINT; Schema: public; Owner: -
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 --
 
 ALTER TABLE ONLY public.messages
@@ -1040,11 +1069,7 @@ ALTER TABLE ONLY public.messages
 
 
 --
-<<<<<<< HEAD
 -- Name: chatrooms fk_rails_9584ddd26e; Type: FK CONSTRAINT; Schema: public; Owner: -
-=======
--- Name: fk_rails_9584ddd26e; Type: FK CONSTRAINT; Schema: public; Owner: -
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 --
 
 ALTER TABLE ONLY public.chatrooms
@@ -1069,20 +1094,14 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180725073226'),
 ('20180725074949'),
 ('20180730032525'),
-<<<<<<< HEAD
 ('20180730132612'),
-=======
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
 ('20180801160126'),
 ('20180802082041'),
 ('20180802115844'),
-('20180805075948'),
-('20180805143228'),
-('20180805160128'),
-('20180805175405'),
-<<<<<<< HEAD
 ('20180809072254'),
-=======
->>>>>>> 5db35c7eaa7e93ab3cc2d41296c4f6fe9669f278
+('20180810071937'),
 ('20180812155112'),
+('20180816061629'),
 ('20180819134303');
+
+
