@@ -2,9 +2,10 @@ class ReviewsController < ApplicationController
   load_and_authorize_resource param_method: :review_params
 
   def index
-    @reviews = if params[:keyword]
-                 Review.search_review(params[:keyword]).order_by_time
-                       .page(params[:page]).per Settings.paginate.per
+    @q = Review.ransack(params[:q])
+    @reviews = if @q
+                  @q.result.order_by_time.page(params[:page])
+                    .per Settings.paginate.per
                elsif params[:field] == "my_reviews"
                  current_user.reviews.page(params[:page])
                              .per Settings.paginate.per

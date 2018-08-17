@@ -13,12 +13,11 @@
       <div class="col-lg-4 sidebar_col">
         <div class="sidebar_search">
           <div class="sidebar_title"><%= t "search" %></div>
-          <%= form_tag reviews_path, method: :get do %>
+          <%= search_form_for @q reviews_path, method: :get do |f|%>
             <div class="sidebar_search_input">
-              <%= text_field_tag :keyword %>
-              <%= button_tag t("search") do %>
-                <span><i class="fa fa-search"></i></span>
-              <% end %>
+              <%= f.label :reviews_title_cont %>
+              <%= f.search_field :reviews_title_cont %>
+              <%= f.submit %>
             </div>
           <% end %>
         </div>

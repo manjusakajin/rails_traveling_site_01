@@ -26,6 +26,7 @@ gem "pg"
 gem "pg_search"
 gem "puma", "~> 3.11"
 gem "rails", "~> 5.2.0"
+gem "ransack"
 gem "redis", "~> 3.0"
 gem "rubocop", "~> 0.54.0", require: false
 gem "sass-rails", "~> 5.0"
