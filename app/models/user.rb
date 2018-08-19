@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :confirmable,
     :rememberable, :recoverable, :lockable
   include PgSearch
+  extend FriendlyId
+  friendly_id :name, use: :slugged
 
   before_save :downcase_email
 

@@ -287,6 +287,8 @@ GEM
     font-awesome-rails (4.7.0.4)
       railties (>= 3.2, < 6.0)
     formatador (0.2.5)
+    friendly_id (5.2.4)
+      activerecord (>= 4.0.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     http-cookie (1.0.3)
@@ -489,6 +491,7 @@ DEPENDENCIES
   figaro
   fog (= 1.42)
   font-awesome-rails
+  friendly_id (~> 5.2.0)
   i18n
   jbuilder (~> 2.5)
   jquery-rails

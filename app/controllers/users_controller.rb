@@ -2,7 +2,13 @@ class UsersController < ApplicationController
   load_and_authorize_resource param_method: :user_params
 
   def index
-    @users = User.page(params[:page]).per Settings.paginate.per_user
+    @q = User.ransack(params[:q])
+    @users = if @q
+                  @q.result.page(params[:page])
+                    .per Settings.paginate.per_user
+             else
+               User.page(params[:page]).per Settings.paginate.per_user
+             end
   end
 
   def new
@@ -27,6 +33,7 @@ class UsersController < ApplicationController
   def edit; end
 
   def update
+    @user = User.friendly.find(params[:id])
     if @user.update_attributes user_params
       flash[:success] = t "sucess_update"
       redirect_to request.referrer

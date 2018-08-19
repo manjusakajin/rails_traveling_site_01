@@ -1,5 +1,7 @@
 class Review < ApplicationRecord
   include PgSearch
+  extend FriendlyId
+  friendly_id :title, use: :slugged
 
   attr_writer :hastags_list
 
