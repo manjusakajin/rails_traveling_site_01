@@ -26,9 +26,9 @@
               </div>
               <div class="footer_blog_content">
                 <div class="footer_blog_title">
-                  <%= link_to "Travel with us this year", "#" %>
+                  <%= link_to Review.find(1).title, Review.find(1) %>
                 </div>
-                <div class="footer_blog_date">Nov 29, 2017</div>
+                <div class="footer_blog_date"><%= Review.find(1).created_at.strftime(" %b %e, %Y") %></div>
               </div>
             </div>
 
@@ -38,9 +38,9 @@
               </div>
               <div class="footer_blog_content">
                 <div class="footer_blog_title">
-                  <%= link_to "New destinations for you", "#" %>
+                  <%= link_to Review.find(2).title, Review.find(2) %>
                 </div>
-                <div class="footer_blog_date">Nov 29, 2017</div>
+                <div class="footer_blog_date"><%= Review.find(2).created_at.strftime(" %b %e, %Y") %></div>
               </div>
             </div>
           </div>
@@ -53,22 +53,22 @@
           <div class="footer_content footer_tags">
             <ul class="tags_list clearfix">
               <li class="tag_item">
-                <%= link_to "homestay", "#" %>
+                <%= link_to Hastag.find(1).title, hastag_path(title: Hastag.find(1).title) %>
               </li>
               <li class="tag_item">
-                <%= link_to "resort", "#" %>
+                <%= link_to Hastag.find(2).title, hastag_path(title: Hastag.find(2).title) %>
               </li>
               <li class="tag_item">
-                <%= link_to "vietnam", "#" %>
+                <%= link_to Hastag.find(3).title, hastag_path(title: Hastag.find(3).title) %>
               </li>
               <li class="tag_item">
-                <%= link_to "english", "#" %>
+                <%= link_to Hastag.find(4).title, hastag_path(title: Hastag.find(4).title) %>
               </li>
               <li class="tag_item">
-                <%= link_to "tour", "#" %>
+                <%= link_to Hastag.find(5).title, hastag_path(title: Hastag.find(5).title) %>
               </li>
               <li class="tag_item">
-                <%= link_to "travel", "#" %>
+                <%= link_to Hastag.find(6).title, hastag_path(title: Hastag.find(6).title) %>
               </li>
             </ul>
           </div>

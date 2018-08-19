@@ -1,23 +1,51 @@
-<div class="row" id="form-row">
-  <div class="col-md-6 offset-md-3">
-    <%= form_tag owner_trip_searchs_path, method: :get do %>
-
-      <%= hidden_field_tag :trip_id, @trip.id %>
-
-      <%= label_tag :search, t("input_keyword") %>
-      <%= text_field_tag :keyword %>
-      <br>
-      <%= button_tag t("search"), class: "btn btn-primary" %>
-    <% end %>
-  </div>
-</div>
-<div class="row" id="form-row">
-  <div class="container">
-    <div class="row mt-3">
-      <% @users.each do |user| %>
-        <%= render "owner/searchs/user", user: user %>
+<div class="row">
+  <div class="col-md-4 ml-md-auto">
+    <div class="sidebar_search">
+      <div class="sidebar_title align-left"><%= t "search" %></div>
+      <%= search_form_for @q, url: owner_trip_searchs_path, method: :get do |f|%>
+        <div class="sidebar_search_input">
+          <%= f.search_field :name_or_email_cont %>
+          <%= button_tag t("search") do %>
+            <span><i class="fa fa-search"></i></span>
+          <% end %>
+        </div>
       <% end %>
     </div>
-    <%= paginate @users, theme: "twitter-bootstrap-4" %>
   </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="table-responsive">
+      <table id="mytable" class="table table-bordred table-striped">
+        <thead>
+          <th></th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Add Member</th>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+          <tr>
+            <td></td>
+            <td><strong><%= user.name %></strong></td>
+            <td><%= user.email %></td>
+            <td>
+              <% unless @trip.members.include? user %>
+                <%= button_to t("add_member"),
+                  owner_trip_participations_path(user_id: user.id,
+                  trip_id: @trip.id),
+                  class: "btn btn-primary" %>
+              <% end %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="pull-right mr-4">
+  <%= paginate @users, theme: "twitter-bootstrap-4" %>
 </div>

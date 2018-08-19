@@ -1,9 +1,11 @@
 class Owner::SearchsController < Owner::ApplicationController
   def index
-    @users = if params[:keyword]
-               User.search(params[:keyword]).page(params[:page]).per_page
+    @q = User.ransack(params[:q])
+    @users = if @q
+               @q.result.page(params[:page])
+                    .per Settings.paginate.per_user
              else
-               User.all.page(params[:page]).per_page
+               User.page(params[:page]).per Settings.paginate.per_user
              end
   end
 end

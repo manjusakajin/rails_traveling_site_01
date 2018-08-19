@@ -122,7 +122,7 @@ ActiveRecord::Schema.define(version: 2018_08_19_141121) do
     t.string "begin"
     t.integer "destination_id"
     t.integer "user_id"
-    t.text "plant"
+    t.text "plan"
     t.text "expense"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

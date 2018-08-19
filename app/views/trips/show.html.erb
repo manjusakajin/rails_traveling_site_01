@@ -1,7 +1,7 @@
 <%= provide :title, @content %>
-<% if @content == "plant" %>
+<% if @content == "plan" %>
   <div id="content-sidebar">
-    <%= @trip.plant.html_safe %>
+    <%= @trip.plan.html_safe %>
   </div>
 <% elsif @content == "expense" %>
   <div id="content-sidebar">

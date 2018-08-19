@@ -35,8 +35,8 @@
                 class: "dropdown-toggle" %>
               <ul class="collapse list-unstyled" id="homeSubmenu">
                 <li>
-                  <%= link_to t("plant"), trip_path(trip: @trip,
-                    content: :plant) %>
+                  <%= link_to t("plan"), trip_path(trip: @trip,
+                    content: :plan) %>
                 </li>
                 <li>
                   <%= link_to t("expense"), trip_path(trip: @trip,
@@ -54,7 +54,7 @@
                   owner_trip_searchs_path(trip_id: @trip.id) %>
                 <%= link_to t("send_notif"), "#" %>
                 <%= link_to t("edit_plant"),
-                  edit_owner_trip_path(field: :plant) %>
+                  edit_owner_trip_path(field: :plan) %>
                 <%= link_to t("edit_expense"),
                   edit_owner_trip_path(field: :expense) %>
                 <%= link_to t("check_request"),

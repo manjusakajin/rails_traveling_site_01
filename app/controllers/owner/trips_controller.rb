@@ -18,7 +18,7 @@ class Owner::TripsController < ApplicationController
   private
 
   def trip_params
-    params.require(:trip).permit :plant, :expense
+    params.require(:trip).permit :plan, :expense
   end
 
   def find_trip

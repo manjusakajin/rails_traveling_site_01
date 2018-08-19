@@ -20,10 +20,19 @@ User.transaction do
 
   users = User.take(6)
   5.times do
-    title = Faker::Lorem.sentence(1)
+    title = "Travel to " + Faker::Lorem.sentence(1)
     content = Faker::Lorem.paragraph
     users.each {|user| user.reviews.create!(title:title, content: content)}
   end
+end
+
+1.times do
+  Hastag.create!(title: "homestay")
+  Hastag.create!(title: "resort")
+  Hastag.create!(title: "vietnam")
+  Hastag.create!(title: "english")
+  Hastag.create!(title: "tour")
+  Hastag.create!(title: "travel")
 end
 
 5.times do |n|
