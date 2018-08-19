@@ -225,3 +225,7 @@ en:
         restrict_dependent_destroy:
           has_one: "Cannot delete record because a dependent %{record} exists"
           has_many: "Cannot delete record because dependent %{record} exist"
+  chance: "Chance"
+  update_plant: "Plant Update"
+  update_expense: "Expense Update"
+  update_fail: "You can not update"

@@ -1,0 +1,8 @@
+<div class="row" id="form-row">
+  <div class="container">
+      <% @participations.each do |participation| %>
+        <%= render participation %>
+      <% end %>
+    <%= paginate @participations, theme: "twitter-bootstrap-4" %>
+  </div>
+</div>

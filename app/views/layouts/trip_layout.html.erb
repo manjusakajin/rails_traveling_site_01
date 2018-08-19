@@ -46,32 +46,32 @@
                 </li>
                 <li>
                   <%= link_to t("group_member"),
-                    trip_participations_path(trip_id: @trip.id,
-                    accepted: :join_in) %>
+                    trip_participations_path(trip_id: @trip.id) %>
                 </li>
               </ul>
             </li>
             <li>
               <% if current_user.is_user? @trip.owner %>
                 <%= link_to t("add_member"),
-                  trip_searchs_path(trip_id: @trip.id) %>
-                <%= link_to "Send Notification",
-                  new_trip_notification_path(trip_id: @trip.id) %>
-                <%= link_to "Chance Plant", edit_trip_path(field: :plant) %>
-                <%= link_to "Chance Expense", edit_trip_path(field: :expense) %>
-                <%= link_to "Check Request",
-                  trip_participations_path(trip_id: @trip,
-                  accepted: :send_request) %>
+                  owner_trip_searchs_path(trip_id: @trip.id) %>
+                <%= link_to t("send_notif"), "#" %>
+                <%= link_to t("edit_plant"),
+                  edit_owner_trip_path(field: :plant) %>
+                <%= link_to t("edit_expense"),
+                  edit_owner_trip_path(field: :expense) %>
+                <%= link_to t("check_request"),
+                  owner_trip_participations_path(trip_id: @trip) %>
               <% end %>
             </li>
           </ul>
           <ul>
             <% if current_user.is_user? @trip.owner %>
-              <li><%= link_to "Delete Trip", @trip, method: :delete,
+              <li><%= link_to t("delete_trip"), @trip, method: :delete,
                data: {confirm: t("confirm_delete")} %></li>
             <% else %>
               <li><%= link_to t("out_group"),
-                trip_participation_path(trip_id: @trip.id), method: :delete,
+                trip_participation_path(trip_id: @trip.id),
+                method: :delete,
                 data: {confirm: t("confirm_delete")} %></li>
             <% end %>
           </ul>
@@ -85,13 +85,12 @@
           <span></span>
           <span></span>
         </button>
-
-        <%= yield %>
-
+        <div id="content-sidebar">
+          <%= yield %>
+        </div>
       </div>
 
     </div>
-
     <% if @chatroom %>
       <%= render "chat" %>
     <% end %>

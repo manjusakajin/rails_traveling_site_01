@@ -1,13 +1,13 @@
 class TripsController < ApplicationController
-  before_action :logged_in_user
-  before_action :find_trip, except: [:index, :new, :create]
-  before_action :check_member, except: [:index, :new, :create]
-  before_action :check_owner, only: [:update, :destroy, :edit]
-  layout "trip_layout", except: [:index, :new, :create]
+  before_action :authenticate_user!
+  before_action :find_trip, only:[:show, :destroy]
+  before_action :check_member, only:[:show, :destroy]
+  before_action :check_delete, only: [:destroy]
+  layout "trip_layout", only: :show
 
   def index
     @trips = if params[:user_id]
-                Kaminari.paginate_array(select_trips current_user.trips).
+               Kaminari.paginate_array(select_trips current_user.trips).
                 page(params[:page]).per Settings.paginate.per
              elsif params[:keyword]
                Trip.search_trip(params[:keyword]).
@@ -24,6 +24,10 @@ class TripsController < ApplicationController
 
   def create
     @trip = Trip.new trip_params
+    destination = Place.find_by(name: @trip.place.name)
+    if destination
+      @trip.place = destination
+    end
     if @trip.save
       flash[:success] = t "create_success"
       @trip.participations.create user: @trip.owner, accepted: :join_in
@@ -37,42 +41,19 @@ class TripsController < ApplicationController
 
   def show
     @content = params[:content] || @trip.name
-    if @content == @trip.name
-      @notifications = @trip.notifications.order(created_at: :DESC)
-    end
     @chatroom = Chatroom.find_by slug: @trip.id
     if @chatroom
       @messages = @chatroom.messages.last 10
       @message = Message.new
     end
     @user = @trip.owner
-    @plants = @trip.plants
-  end
-
-  def edit
-    @field = params[:field]
-  end
-
-  def update
-    if params[:trip][:field] == "plant"
-      @trip.update_attributes(plant: params[:trip][:plant])
-      @trip.notifications.create event: "Plant updated"
-      flash[:success] = "Plant updated"
-    elsif params[:trip][:field] == "expense"
-      @trip.update_attributes(expense: params[:trip][:expense])
-      @trip.notifications.create event: "Expense updated"
-      flash[:success] = "Expense updated"
-    else
-      flash[:danger] = "Can not update"
-    end
-    redirect_to @trip
   end
 
   def destroy
     if @trip.destroy
-      flash[:success] = "Delete success"
+      flash[:success] = t "delete_success"
     else
-      flash[:danger] = "Delete fail"
+      flash[:danger] = t "delete_fail"
     end
     redirect_to root_url
   end
@@ -91,7 +72,7 @@ class TripsController < ApplicationController
   end
 
   def trip_params
-    params.require(:trip).permit :name, :user_id, :begin, :destination_id,
+    params.require(:trip).permit :name, :user_id, :begin,
       place_attributes: [:name]
   end
 
@@ -103,18 +84,18 @@ class TripsController < ApplicationController
     redirect_to root_url
   end
 
-  def check_owner
+  def check_delete
 
-     return if current_user == @trip.owner
-     flash[:danger] = "You not owner"
+     return if current_user.is_user?(@trip.owner) || current_user.is_admin?
+     flash[:danger] = t "can_not_delete"
      redirect_to root_url
-  end
+   end
 
   def check_member
     @participation = @trip.participations.find_by user_id: current_user.id
 
     return if @participation&.join_in?
-    flash[:danger] = "You not member"
+    flash[:danger] = t "not_member"
     redirect_to root_url
   end
 end

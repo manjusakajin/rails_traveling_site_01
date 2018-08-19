@@ -4,9 +4,9 @@
       <div class="row">
         <div class="col d-flex flex-row">
           <div class="user_box ml-auto">
-            <% if logged_in? %>
+            <% if user_signed_in? %>
               <ul>
-                <% if current_user.is_admin? %>
+                <% if current_user.admin? %>
                   <li class="user_box_login user_box_link">
                     <%= link_to t("dashboard"), users_path %>
                   </li>
@@ -16,16 +16,19 @@
                     edit_user_path(current_user.id) %>
                 </li>
                 <li class="user_box_login user_box_link">
-                  <%= link_to t("logout"), logout_path, method: :delete %>
+                  <%= link_to t("logout"), destroy_user_session_path,
+                    method: :delete %>
                 <li>
               </ul>
             <% else %>
               <div class="user_box_login user_box_link">
-                <%= link_to t("login"), login_path, remote: true, data:
+                <%= link_to t("login"), new_user_session_path,
+                  remote: true, data:
                   {target: "#login", toggle: "modal"} %>
               </div>
               <div class="user_box_register user_box_link">
-                <%= link_to t("register"), signup_path, remote: true, data:
+                <%= link_to t("register"), new_user_registration_path,
+                  remote: true, data:
                   {target: "#createuser", toggle: "modal"} %>
               </div>
             <% end %>

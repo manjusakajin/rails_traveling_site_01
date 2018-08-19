@@ -216,3 +216,7 @@ vi:
         restrict_dependent_destroy:
           has_one: Không thể xóa do tồn tại đối tượng phụ thuộc %{record}
           has_many: Không thể xóa do tồn tại một số đối tượng phụ thuộc %{record}
+    chance: "Thay Đổi"
+    update_plant: "Kế hoạch thay đổi"
+    update_expense: "Chi tiêu thay đổi"
+    update_fail: "Bạn không thể update"

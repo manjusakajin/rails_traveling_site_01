@@ -1,0 +1,22 @@
+<div class="row" id="list">
+  <div class="col-md-2">
+    <%= image_tag "latest_3.jpg",
+      size: Settings.participation.picture_size %>
+  </div>
+  <div class="col-md-5">
+    <ul>
+      <li><h2><%= participation.user.name %></h2></li>
+    </ul>
+  </div>
+  <% if logged_in? %>
+    <div class="col-md-5" id="send_request_button">
+      <%= button_to t("accept"),
+        owner_trip_participation_path(id: participation), method: :patch,
+        data: {confirm: t("confirm_delete")}, class: "btn btn-primary" %>
+      <br>
+      <%= button_to t("reject"),
+        owner_trip_participation_path(id: participation), method: :delete,
+        data: {confirm: t("confirm_delete")}, class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

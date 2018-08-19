@@ -4,12 +4,10 @@
     <%= image_tag "review_1.jpg"%>
     <h5 class="m-0"><strong><%= user.name %></strong></h5>
     <p class="mb-2"><%= user.email %></p>
-    <% if !@trip.members.include?(user) &&
-      @trip.owner.is_user?(current_user) %>
+    <% unless @trip.members.include? user %>
       <%= button_to t("add_member"),
-        trip_participations_path(user_id: user.id,
-        trip_id: @trip.id,
-        accepted: :join_in),
+        owner_trip_participations_path(user_id: user.id,
+        trip_id: @trip.id),
         class: "btn btn-primary" %>
     <% end %>
 </div>

@@ -40,7 +40,7 @@
     </div>
 
     <div class="blog_post_text">
-      <p><%= strip_tags review.content %></p>
+      <p><%= review.content.html_safe %></p>
     </div>
     <div class="blog_post_link">
       <%= link_to t("read_more"), review %>
@@ -48,5 +48,5 @@
   </div>
 </div>
 <br>
-_________________________________________________________________________________
+<br>
 <br>

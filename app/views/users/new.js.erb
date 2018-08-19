@@ -1,6 +1,4 @@
-<% provide :title, t("signup") %>
-<% provide :button_text, t("button_text") %>
-<% provide :modal_content, "users/form"  %>
-$("#modal-window").find(".modal-content").
-  html("<%= j render 'shared/modal' %>");
-$("#modal-window").modal('show');
+$('<%= j render "form" %>').on('hidden.bs.modal', function (e) {
+  $(this).remove();
+  $('.modal-backdrop').remove();
+}).modal();

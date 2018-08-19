@@ -1,24 +1,20 @@
 Rails.application.routes.draw do
-  get 'password_resets/new'
-  get 'password_resets/edit'
   scope "(:locale)", locale: /en|vi/ do
     root "static_pages#home"
-    get "/signup", to: "users#new"
-    post "/signup", to: "users#create"
-    get "/login", to: "sessions#new"
-    post "/login", to: "sessions#create"
-    delete "/logout", to: "sessions#destroy"
-    resources :users do
-      resources :trips, only: :index
-      resources :participations, only: :index
+    devise_for :users, controllers: {
+        registrations: "users/registrations",
+        sessions: "users/sessions"
+      }
+    resources :users
+    resources :trips, only: [:new, :create, :index, :show, :destroy] do
+      resources :participations, only: [:create, :destroy, :index]
     end
-    resources :account_activations, only: :edit
-    resources :password_resets, except: [:show, :index, :destroy]
-    resources :trips do
-      resources :participations, except: [:new, :edit, :show]
-      resources :searchs, only: :index
-      resources :users, only: :index
-      resources :notifications, only: [:create, :new]
+    namespace :owner do
+      resources :trips, only: [:update, :edit] do
+        resources :participations,
+          only: [:index, :create, :update, :destroy]
+        resources :searchs, only: :index
+      end
     end
     resources :reviews do
       resources :comments

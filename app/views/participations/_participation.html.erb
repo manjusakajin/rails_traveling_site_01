@@ -8,27 +8,12 @@
       <li><h2><%= participation.user.name %></h2></li>
     </ul>
   </div>
-  <% if logged_in? %>
-    <% if participation.send_request? %>
-      <div class="col-md-5" id="send_request_button">
-        <%= button_to "ACCEPT", trip_participation_path(id: participation.id,
-          accepted: :send_request, trip_id: participation.trip.id),
-          method: :patch,
-          data: {confirm: t("confirm_delete")}, class: "btn btn-primary" %>
-        <br>
-        <%= button_to "REJECT", trip_participation_path(id: participation.id,
-          accepted: :send_request, trip_id: participation.trip.id),
-          method: :delete,
-          data: {confirm: t("confirm_delete")}, class: "btn btn-primary" %>
-      </div>
-    <% elsif participation.join_in? %>
-      <div class="pull-right">
-        <%= link_to trip_participation_path(trip_id: @trip.id,
-          id: participation.id),
-          method: :delete, data: {confirm: t("confirm_delete")} do %>
-          <i class="fa fa-trash-o fa-2x fa-border"></i>
-        <% end %>
-      </div>
-    <% end %>
+  <% if current_user.is_user? @trip.owner %>
+    <div class="pull-right">
+      <%= link_to owner_trip_participation_path(id: participation.id),
+        method: :delete, data: {confirm: t("confirm_delete")} do %>
+        <i class="fa fa-trash-o fa-2x fa-border"></i>
+      <% end %>
+    </div>
   <% end %>
 </div>

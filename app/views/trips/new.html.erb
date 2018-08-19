@@ -12,11 +12,13 @@
       <%= f.label :name, t("trip_name") %>
       <%= f.text_field :name, class: "form-control"  %>
       <%= f.label :begin, t("origin_location") %>
-      <%= f.text_field :begin, class: "form-control", placeholder: t("origin_location"), id: "origin-input" %>
+      <%= f.text_field :begin, class: "form-control",
+      placeholder: t("origin_location"), id: "origin-input" %>
       <%= f.label :destination, t("destination_location") %>
 
       <%= f.fields_for :place, Place.new do |ff| %>
-        <%= ff.text_field :name, class: "form-control", id: "destination-input",placeholder: t("destination_location") %>
+        <%= ff.text_field :name, class: "form-control",
+        id: "destination-input",placeholder: t("destination_location") %>
       <% end %>
       <br>
       <%= f.submit yield(:button_text), class: "btn btn-primary" %>
