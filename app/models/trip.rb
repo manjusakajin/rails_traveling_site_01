@@ -1,5 +1,6 @@
 class Trip < ApplicationRecord
   include PgSearch
+  multisearchable :against => :name
 
   belongs_to :place, foreign_key: "destination_id"
   belongs_to :owner, class_name: User.name, foreign_key: :user_id

@@ -3,7 +3,6 @@
     <div class="container">
       <div class="row">
         <div class="col d-flex flex-row">
-          <div class="phone">2556-808-8613</div>
           <div class="user_box ml-auto">
             <% if logged_in? %>
               <ul>
@@ -30,6 +29,7 @@
                   {target: "#createuser", toggle: "modal"} %>
               </div>
             <% end %>
+            <div class="phone"><%= render "search/form" %><div>
           </div>
         </div>
       </div>

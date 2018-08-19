@@ -1,5 +1,6 @@
 class Review < ApplicationRecord
   include PgSearch
+  multisearchable :against => [:title, :content]
 
   attr_writer :hastags_list
 

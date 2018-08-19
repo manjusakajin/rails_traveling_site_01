@@ -1,7 +1,6 @@
 var map;
 var jsonObj = [];
 var image = 'https://image.ibb.co/mgYSWU/Screenshot_from_2018_08_14_14_54_04.png';
-var destinationInput;
 var stat=false;
 
 function initMap() {
@@ -27,8 +26,8 @@ function initMap() {
       directionsDisplay);
   var geocoder_origin = new google.maps.Geocoder();
   var geocoder_destination = new google.maps.Geocoder();
-  geocodeAddress(geocoder_origin, origin, 'Start', 'Start', 0);
-  geocodeAddress(geocoder_destination, destination, 'Destination', 'Destination', 0);
+  geocodeAddress(geocoder_origin, origin, 'Start', 0);
+  geocodeAddress(geocoder_destination, destination, 'Destination', 0);
 
   elements = Array.prototype.slice.call(document.getElementsByClassName('plant-places'));
   contentString = [];
@@ -38,15 +37,15 @@ function initMap() {
     jsonObj.push(item);
     contentString[i] = elements[i].value;
     geocoder = new google.maps.Geocoder();
-    plant_name = elements[i].getAttribute('data-name');
+    // plant_name = elements[i].getAttribute('data-name');
     plant_des = elements[i].getAttribute('data-des');
     plant_id = elements[i].getAttribute('data-id');
-    geocodeAddress(geocoder, elements[i].value, plant_name, plant_des, plant_id);
+    geocodeAddress(geocoder, elements[i].value, plant_des, plant_id);
   }
   new AutocompleteDirectionsHandler(map);
 }
 
-function geocodeAddress(geocoder, address, plant_name, plant_des, plant_id) {
+function geocodeAddress(geocoder, address, plant_des, plant_id) {
   geocoder.geocode({'address': address}, function(results, status) {
     if (status === 'OK') {
       var marker = new google.maps.Marker({
@@ -96,13 +95,8 @@ function computeTotalDistance(result) {
 function AutocompleteDirectionsHandler(map) {
   this.map = map;
   this.originPlaceId = null;
-  destinationInput = document.getElementById('place-input');
-  var geocoder = new google.maps.Geocoder();
-  geocoder.geocode({'address': destinationInput.value}, function(results, status) {
-    if (status === 'OK') {
-      stat=true;
-    };
-  });
+  var destinationInput = document.getElementById('place-input');
+
   var destinationAutocomplete = new google.maps.places.Autocomplete(
       destinationInput, {placeIdOnly: true});
   this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
@@ -118,6 +112,19 @@ AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(aut
       return;
     }
     me.destinationPlaceId = place.place_id;
+    stat = true;
+    var service = new google.maps.places.PlacesService(map);
+    service.getDetails({
+        placeId: place.place_id
+    }, function (result, status) {
+        var marker = new google.maps.Marker({
+            map: map,
+            place: {
+                placeId: place.place_id,
+                location: result.geometry.location
+            }
+        });
+    });
   });
 };
 $(document).ready(function () {

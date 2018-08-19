@@ -7,6 +7,7 @@ class CreatePlaces < ActiveRecord::Migration[5.2]
       t.float :lat
       t.float :lng
       t.boolean :is_deleted
+      t.integer :checkin_count, :default => 0
 
       t.timestamps
     end

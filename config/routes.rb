@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     resources :chatrooms, param: :slug
     resources :messages
     resources :reviews
+    resources :results, only: [:index]
     resources :plants, only: [:new, :create, :show, :destroy]
     get "hastags/:title", to: "hastags#show", as: :hastag
     mount ActionCable.server => "/cable"
