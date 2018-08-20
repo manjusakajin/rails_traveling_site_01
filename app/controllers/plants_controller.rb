@@ -9,7 +9,7 @@ class PlantsController < ApplicationController
     @plant = Plant.new plant_params
     if @plant.save
       cont = t("plant_note") + @plant.description + t("at") + @plant.place.name
-      flash[:success] = t "create_success"
+      flash[:success] = "Add plan success"
       message = Message.new(:content => cont, :chatroom_id => @plant.trip.chatroom.id)
       message.user = current_user
 

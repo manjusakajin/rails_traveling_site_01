@@ -14,7 +14,6 @@
 
 $(document).ready(function()
 {
-
 	/*
 	1. Vars and Inits
 	*/
@@ -23,6 +22,10 @@ $(document).ready(function()
 	var menuActive = false;
 	var header = $('.header');
 	var searchActive = false;
+
+	setTimeout(function() {
+    $('#successMessage').fadeOut('fast');
+	}, 5000);
 
 	setHeader();
 

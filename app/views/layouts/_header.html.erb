@@ -7,25 +7,14 @@
             <% if user_signed_in? %>
               <ul>
                 <div class="user_box_login user_box_link">
-                    <%= render_notifications_of current_user,
-                      index_content: :with_attributes %>
-                </div>
-                <% if current_user.admin? %>
-                  <li class="user_box_login user_box_link">
-                    <%= link_to t("dashboard"), users_path %>
-                  </li>
-                <% end %>
-                <li class="user_box_login user_box_link">
-                  <%= link_to current_user.name,
-                    edit_user_path(current_user.id) %>
-                </li>
-                <li class="user_box_login user_box_link">
                   <%= link_to t("logout"), destroy_user_session_path,
                     method: :delete %>
-                <li>
+                <div>
               </ul>
             <% else %>
-            <%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path %>
+            <%= link_to user_facebook_omniauth_authorize_path  do %>
+              <i class="fa fa-facebook-official" aria-hidden="true"></i>
+            <% end %>
               <div class="user_box_login user_box_link">
                 <%= link_to t("login"), new_user_session_path,
                   remote: true, data:
@@ -37,7 +26,6 @@
                   {target: "#createuser", toggle: "modal"} %>
               </div>
             <% end %>
-            <div class="phone"><%= render "search/form" %><div>
           </div>
         </div>
       </div>
@@ -49,6 +37,17 @@
       <div class="row">
         <div class="col main_nav_col d-flex flex-row align-items-center
           justify-content-start">
+          <div class="logo_container">
+            <% if user_signed_in? %>
+              <div>
+                <div type="button" id="sidebarCollapse" class="navbar-btn">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
+            <% end %>
+          </div>
           <div class="logo_container">
             <div class="logo">
               <%= link_to image_tag("logo.png"), class: "logo_img" %>
@@ -66,10 +65,20 @@
               <li class="main_nav_item">
                 <%= link_to t("reviews"), reviews_path %>
               </li>
-              <li class="main_nav_item">
-                <%= link_to t("trips"), trips_path %>
-              </li>
+              <% if user_signed_in? %>
+                <li class="main_nav_item">
+                  <%= link_to t("trips"), trips_path %>
+                </li>
+                <li class="main_nav_item">
+                  <%= link_to t("dashboard"),
+                    edit_user_path(current_user.id) %>
+                </li>
+              <% end %>
             </ul>
+          </div>
+
+          <div class="content_search ml-lg-0 ml-auto" style="width:120px;">
+            <%= render "search/form" %>
           </div>
 
           <div class="hamburger">
@@ -83,7 +92,6 @@
 
 <div class="home">
   <div class="home_background parallax-window">
-    <%#= asset_url "blog_background.jpg" %>
   </div>
   <div class="home_content">
     <div class="home_title"><%= yield :title %></div>

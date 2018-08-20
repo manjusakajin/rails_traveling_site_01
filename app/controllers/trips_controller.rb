@@ -1,17 +1,14 @@
 class TripsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :find_trip, only:[:show, :destroy]
-  before_action :check_member, only:[:show, :destroy]
-  before_action :check_delete, only: [:destroy]
+  load_and_authorize_resource param_method: :trip_params
   layout "trip_layout", only: :show
 
   def index
+    @q = Trip.ransack(params[:q])
     @trips = if params[:user_id]
-               Kaminari.paginate_array(select_trips current_user.trips).
-                page(params[:page]).per Settings.paginate.per
-             elsif params[:keyword]
-               Trip.search_trip(params[:keyword]).
-                page(params[:page]).per_page
+               Kaminari.paginate_array(select_trips(current_user.trips))
+                       .page(params[:page]).per Settings.paginate.per
+             elsif @q
+               @q.result.page(params[:page]).per_page
              else
               Trip.all.page(params[:page]).per_page
              end
@@ -75,28 +72,5 @@ class TripsController < ApplicationController
   def trip_params
     params.require(:trip).permit :name, :user_id, :begin,
       place_attributes: [:name]
-  end
-
-  def find_trip
-    @trip = Trip.find_by id: params[:id]
-
-    return if @trip
-    flash[:danger] = t "danger.find_trip"
-    redirect_to root_url
-  end
-
-  def check_delete
-
-     return if current_user.is_user?(@trip.owner) || current_user.is_admin?
-     flash[:danger] = t "can not delete"
-     redirect_to root_url
-   end
-
-  def check_member
-    @participation = @trip.participations.find_by user_id: current_user.id
-
-    return if @participation&.join_in?
-    flash[:danger] = t "not_member"
-    redirect_to root_url
   end
 end

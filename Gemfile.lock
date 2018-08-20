@@ -49,7 +49,7 @@ GEM
       railties (>= 4.2.0, < 5.3)
     arel (9.0.0)
     ast (2.4.0)
-    autoprefixer-rails (9.1.1)
+    autoprefixer-rails (9.1.2)
       execjs
     bcrypt (3.1.12)
     bindex (0.5.0)
@@ -64,6 +64,7 @@ GEM
       rails (>= 3.1)
     builder (3.2.3)
     byebug (10.0.2)
+    cancancan (2.2.0)
     carrierwave (1.2.2)
       activemodel (>= 4.0.0)
       activesupport (>= 4.0.0)
@@ -292,6 +293,8 @@ GEM
     font-awesome-rails (4.7.0.4)
       railties (>= 3.2, < 6.0)
     formatador (0.2.5)
+    friendly_id (5.2.4)
+      activerecord (>= 4.0.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     hashie (3.5.7)
@@ -419,6 +422,11 @@ GEM
       thor (>= 0.19.0, < 2.0)
     rainbow (3.0.0)
     rake (12.3.1)
+    ransack (2.0.1)
+      actionpack (>= 5.0)
+      activerecord (>= 5.0)
+      activesupport (>= 5.0)
+      i18n
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
@@ -511,6 +519,7 @@ DEPENDENCIES
   bootstrap (~> 4.1.2)
   bootstrap4-kaminari-views
   byebug
+  cancancan (~> 2.0)
   carrierwave (= 1.2.2)
   ckeditor
   ckeditor-imgur
@@ -521,6 +530,7 @@ DEPENDENCIES
   figaro
   fog (= 1.42)
   font-awesome-rails
+  friendly_id (~> 5.2.0)
   i18n
   jbuilder (~> 2.5)
   jquery-rails
@@ -535,6 +545,7 @@ DEPENDENCIES
   puma (~> 3.11)
   rails (~> 5.2.0)
   rails_12factor
+  ransack
   redis (~> 3.0)
   rubocop (~> 0.54.0)
   sass-rails (~> 5.0)
@@ -550,4 +561,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.3
+   1.16.2

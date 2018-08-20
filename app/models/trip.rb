@@ -1,11 +1,13 @@
 class Trip < ApplicationRecord
   include PgSearch
+  extend FriendlyId
+  friendly_id :name, use: :slugged
   multisearchable :against => :name
 
   belongs_to :place, foreign_key: "destination_id"
   belongs_to :owner, class_name: User.name, foreign_key: :user_id
 
-  has_one :chatroom, dependent: :destroy
+  has_one :chatroom, dependent: :destroy, foreign_key: "slug"
 
   has_many :participations, dependent: :destroy
   has_many :members, through: :participations,

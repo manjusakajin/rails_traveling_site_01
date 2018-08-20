@@ -1,7 +1,7 @@
 en:
   send_notif: "Send Notification"
-  edit_plant: "Chance Plant"
-  edit_expense: "Chance Expense"
+  edit_plan: "Change plant"
+  edit_expense: "Change Expense"
   check_request: "Check Request"
   delete_trip: "Delete Trip"
 vi:

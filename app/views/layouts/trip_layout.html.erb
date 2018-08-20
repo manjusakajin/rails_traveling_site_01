@@ -6,84 +6,158 @@
   </head>
 
   <body>
-    <div id="modal-window" class="modal hide fade" role="dialog"
-      aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id="modal-window" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content"></div>
+      </div>
+    </div>
+    <header class="header">
+      <div class="top_bar">
+        <div class="container">
+          <div class="row">
+            <div class="col d-flex flex-row">
+              <div class="user_box ml-auto">
+                <% if user_signed_in? %>
+                  <ul>
+                    <div class="user_box_login user_box_link">
+                      <%= link_to t("logout"), destroy_user_session_path, method: :delete %>
+                      <div></ul>
+                    <% else %>
+                      <%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path do %>
+                      <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                    <% end %>
+                    <div class="user_box_login user_box_link">
+                      <%= link_to t("login"), new_user_session_path, remote: true, data: {target: "#login", toggle: "modal"} %>
+                    </div>
+                    <div class="user_box_register user_box_link">
+                      <%= link_to t("register"), new_user_registration_path, remote: true, data: {target: "#createuser", toggle: "modal"} %>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <nav class="main_nav">
+          <div class="container">
+            <div class="row">
+              <div class="col main_nav_col d-flex flex-row align-items-center
+              justify-content-start">
+                <div class="logo_container">
+                  <div class="logo">
+                    <%= link_to image_tag("logo.png"), class: "logo_img" %>
+                    <div class="logo_title"><%= t "base_title" %></div>
+                  </div>
+                </div>
+                <div class="main_nav_container ml-auto">
+                  <ul class="main_nav_list">
+                    <li class="main_nav_item">
+                      <%= link_to t("home"), root_path %>
+                    </li>
+                    <li class="main_nav_item">
+                      <%= link_to t("about"), about_path %>
+                    </li>
+                    <li class="main_nav_item">
+                      <%= link_to t("reviews"), reviews_path %>
+                    </li>
+                    <% if user_signed_in? %>
+                      <li class="main_nav_item">
+                        <%= link_to t("trips"), trips_path %>
+                      </li>
+                      <li class="main_nav_item">
+                        <%= link_to t("dashboard"), edit_user_path(current_user.id) %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+
+                <div class="content_search ml-lg-0 ml-auto" style="width:120px;">
+                  <%= render "search/form" %>
+                </div>
+
+                <div class="hamburger">
+                  <i class="fa fa-bars trans_200"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+
+      <div class="home">
+        <div class="home_background parallax-window"></div>
+        <div class="home_content">
+          <div class="home_title"><%= yield :title %></div>
         </div>
       </div>
-    </div>
-    <%= render "layouts/header" %>
-    <% flash.each do |message_type, message| %>
-      <%= content_tag :div, message,
-        class: "alert alert-#{message_type}" %>
-    <% end %>
-    <input class="hidden-data" id="origin" value="<%= @trip.begin %>"></input>
-    <input class="hidden-data" id="destination" value="<%= @trip.place.name %>"></input>
-    <div class="wrapper">
-      <!-- Sidebar -->
-      <nav id="sidebar">
+
+      <input class="hidden-data" id="origin" value="<%= @trip.begin %>"></input>
+      <input class="hidden-data" id="destination" value="<%= @trip.place.name %>"></input>
+      <div class="wrapper">
+        <!-- Sidebar -->
         <nav id="sidebar">
-          <div class="sidebar-header text-center">
-            <h2><%= link_to @trip.name, @trip %></h2>
-          </div>
+          <nav id="sidebar">
+            <div class="sidebar-header text-center">
+              <h2><%= link_to @trip.name, @trip %></h2>
+            </div>
 
-          <ul class="list-unstyled components">
-            <p class="text-center"><%= @trip.owner.name %></p>
-            <li class="active">
-              <%= link_to t("trip_info"), "#homeSubmenu",
-                data: {toggle: "collapse"},
-                aria: {expanded: "false"},
-                class: "dropdown-toggle" %>
-              <ul class="collapse list-unstyled" id="homeSubmenu">
-                <li>
-                  <%= link_to t("plant"), trip_path(trip: @trip,
-                    content: :plant) %>
-                </li>
-                <li>
-                  <%= link_to t("expense"), trip_path(trip: @trip,
-                    content: :expense) %>
-                </li>
-                <li>
-                  <%= link_to t("group_member"),
-                    trip_participations_path(trip_id: @trip.id,
-                    accepted: :join_in) %>
-                </li>
-              </ul>
-            </li>
-            <li>
-            </li>
-          </ul>
-          <ul>
-            <% if current_user.is_user? @trip.owner %>
-              <li><%= link_to "Delete Trip", @trip, method: :delete,
-               data: {confirm: t("confirm_delete")} %></li>
-            <% else %>
-              <li><%= link_to t("out_group"),
-                trip_participation_path(trip_id: @trip.id), method: :delete,
-                data: {confirm: t("confirm_delete")} %></li>
-            <% end %>
-          </ul>
+            <ul class="list-unstyled components">
+              <p class="text-center"><%= @trip.owner.name %></p>
+              <li class="active">
+                <%= link_to t("trip_info"), "#homeSubmenu", data: {toggle: "collapse"}, aria: {expanded: "false"}, class: "dropdown-toggle" %>
+                <ul class="collapse list-unstyled" id="homeSubmenu">
+                  <li>
+                    <%= link_to t("plant"), trip_path(trip: @trip, content: :plant) %>
+                  </li>
+                  <li>
+                    <%= link_to t("expense"), trip_path(trip: @trip, content: :expense) %>
+                  </li>
+                  <li>
+                    <%= link_to t("group_member"), trip_participations_path(trip_id: @trip.id, accepted: :join_in) %>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <% if current_user.is_user? @trip.owner %>
+                  <%= link_to t("add_member"), owner_trip_searchs_path(trip_id: @trip.id) %>
+                  <%= link_to "Chance Expense", edit_owner_trip_path(field: :expense) %>
+                  <%= link_to "Check Request", owner_trip_participations_path(trip_id: @trip, accepted: :send_request) %>
+                <% end %>
+              </li>
+            </ul>
+            <ul>
+              <% if current_user.is_user? @trip.owner %>
+                <li><%= link_to "Delete Trip", @trip, method: :delete, data: {confirm: t("confirm_delete")} %></li>
+              <% else %>
+                <li><%= link_to t("out_group"), trip_participation_path(trip_id: @trip.id), method: :delete, data: {confirm: t("confirm_delete")} %></li>
+              <% end %>
+            </ul>
+          </nav>
         </nav>
-      </nav>
 
-      <!-- Page Content -->
-      <div id="content">
-        <button type="button" id="sidebarCollapse" class="navbar-btn">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+        <!-- Page Content -->
+        <div class="super_container" id="content">
+          <button type="button" id="sidebarCollapse1" class="navbar-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
 
-        <%= yield %>
-
+          <div id="content-sidebar">
+            <div id="successMessage">
+              <% flash.each do |message_type, message| %>
+                <%= content_tag :div, message,
+                  class: "alert alert-#{message_type}" %>
+              <% end %>
+            </div>
+            <%= yield %>
+          </div>
       </div>
-
     </div>
 
-    <% if @chatroom %>
-      <%= render "chat" %>
-    <% end %>
-    <%= render "layouts/footer" %>
-  </body>
-</html>
+      <% if @chatroom %>
+        <%= render "chat" %>
+      <% end %>
+    </body>
+  </html>

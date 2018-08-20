@@ -1,9 +1,9 @@
 class ParticipationsController < ApplicationController
-  before_action :authenticate_user!
+  load_and_authorize_resource
+  skip_load_resource only: :destroy
+  skip_authorize_resource only: :index
   before_action :find_trip, only: [:index, :create, :destroy]
-  before_action :check_user, only: :create
   before_action :find_participation, only: :destroy
-  before_action :check_delete, only: :destroy
 
   def index
     @participations = @trip.participations.join_in

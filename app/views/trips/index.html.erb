@@ -1,10 +1,10 @@
-<div class="row" id="form-row">
-  <div class="col-md-3 ml-md-auto">
+<div class="row">
+  <div class="col-md-4 ml-md-auto">
     <div class="sidebar_search">
       <div class="sidebar_title"><%= t "search" %></div>
-      <%= form_tag trips_path, method: :get do %>
+      <%= search_form_for @q, method: :get do |f|%>
         <div class="sidebar_search_input">
-          <%= text_field_tag :keyword %>
+          <%= f.search_field :name_or_begin_or_place_name_or_owner_name_cont %>
           <%= button_tag t("search") do %>
             <span><i class="fa fa-search"></i></span>
           <% end %>

@@ -1,4 +1,5 @@
 class Owner::ParticipationsController < Owner::ApplicationController
+  load_and_authorize_resource only: :destroy
   before_action :find_participation, only: [:update, :destroy]
   before_action :find_user, only: :create
 

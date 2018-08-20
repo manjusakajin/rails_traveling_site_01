@@ -3,8 +3,10 @@ User.transaction do
                email: "example@railstutorial.org",
                password: "foobar",
                password_confirmation: "foobar",
-               admin: true,
-               confirmed_at: Time.now)
+               confirmation_token: "aaa",
+               confirmed_at: Time.now,
+               confirmation_sent_at: Time.now,
+               admin: true)
 
   5.times do |n|
     name  = Faker::Name.name
@@ -19,8 +21,17 @@ User.transaction do
 
   users = User.take(6)
   5.times do
-    title = Faker::Lorem.sentence(1)
+    title = "Travel to " + Faker::Lorem.sentence(1)
     content = Faker::Lorem.paragraph
     users.each {|user| user.reviews.create!(title:title, content: content)}
   end
+end
+
+1.times do
+  Hastag.create!(title: "homestay")
+  Hastag.create!(title: "resort")
+  Hastag.create!(title: "vietnam")
+  Hastag.create!(title: "english")
+  Hastag.create!(title: "tour")
+  Hastag.create!(title: "travel")
 end

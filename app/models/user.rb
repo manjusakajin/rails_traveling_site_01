@@ -5,9 +5,9 @@ class User < ApplicationRecord
     :rememberable, :recoverable, :lockable, :omniauthable,
     omniauth_providers: [:facebook]
   include PgSearch
+  extend FriendlyId
+  friendly_id :name, use: :slugged
   multisearchable :against => :name
-
-  attr_accessor :remember_token, :activation_token, :reset_token
 
   before_save :downcase_email
 
@@ -37,6 +37,23 @@ class User < ApplicationRecord
 
   def is_user? user
     self == user
+  end
+
+  def self.new_with_session params, session
+    super.tap do |user|
+      if data = session["devise.facebook_data"] &&
+        session["devise.facebook_data"]["extra"]["raw_info"]
+        user.email = data["email"] if user.email.blank?
+      end
+    end
+  end
+
+  def self.from_omniauth auth
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0,20]
+      user.name = auth.info.name
+    end
   end
 
   private

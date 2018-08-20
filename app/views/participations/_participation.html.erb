@@ -8,7 +8,7 @@
       <li><h2><%= participation.user.name %></h2></li>
     </ul>
   </div>
-  <% if current_user.is_user? @trip.owner %>
+  <% if can? :destroy, participation %>
     <div class="pull-right">
       <%= link_to owner_trip_participation_path(id: participation.id),
         method: :delete, data: {confirm: t("confirm_delete")} do %>

@@ -176,6 +176,40 @@ ALTER SEQUENCE public.comments_id_seq OWNED BY public.comments.id;
 
 
 --
+-- Name: friendly_id_slugs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.friendly_id_slugs (
+    id integer NOT NULL,
+    slug character varying NOT NULL,
+    sluggable_id integer NOT NULL,
+    sluggable_type character varying(50),
+    scope character varying,
+    created_at timestamp without time zone
+);
+
+
+--
+-- Name: friendly_id_slugs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.friendly_id_slugs_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: friendly_id_slugs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.friendly_id_slugs_id_seq OWNED BY public.friendly_id_slugs.id;
+
+
+--
 -- Name: hastag_posts; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -489,6 +523,7 @@ ALTER SEQUENCE public.plants_id_seq OWNED BY public.plants.id;
 CREATE TABLE public.reviews (
     id bigint NOT NULL,
     title character varying,
+    slug character varying,
     content text,
     user_id integer,
     created_at timestamp without time zone NOT NULL,
@@ -571,9 +606,11 @@ ALTER SEQUENCE public.subscriptions_id_seq OWNED BY public.subscriptions.id;
 CREATE TABLE public.trips (
     id bigint NOT NULL,
     name character varying,
+    slug character varying,
     begin character varying,
     destination_id integer,
     user_id integer,
+    plan text,
     expense text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -606,6 +643,7 @@ ALTER SEQUENCE public.trips_id_seq OWNED BY public.trips.id;
 CREATE TABLE public.users (
     id bigint NOT NULL,
     name character varying,
+    slug character varying,
     admin boolean DEFAULT false,
     email character varying DEFAULT ''::character varying NOT NULL,
     encrypted_password character varying DEFAULT ''::character varying NOT NULL,
@@ -624,7 +662,9 @@ CREATE TABLE public.users (
     failed_attempts integer DEFAULT 0 NOT NULL,
     locked_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    provider character varying,
+    uid character varying
 );
 
 
@@ -673,6 +713,13 @@ ALTER TABLE ONLY public.ckeditor_assets ALTER COLUMN id SET DEFAULT nextval('pub
 --
 
 ALTER TABLE ONLY public.comments ALTER COLUMN id SET DEFAULT nextval('public.comments_id_seq'::regclass);
+
+
+--
+-- Name: friendly_id_slugs id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.friendly_id_slugs ALTER COLUMN id SET DEFAULT nextval('public.friendly_id_slugs_id_seq'::regclass);
 
 
 --
@@ -807,6 +854,14 @@ ALTER TABLE ONLY public.comments
 
 
 --
+-- Name: friendly_id_slugs friendly_id_slugs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.friendly_id_slugs
+    ADD CONSTRAINT friendly_id_slugs_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: hastag_posts hastag_posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -937,6 +992,34 @@ CREATE INDEX idx_ckeditor_assetable_type ON public.ckeditor_assets USING btree (
 --
 
 CREATE INDEX index_abcs_on_commentable_type_and_commentable_id ON public.abcs USING btree (commentable_type, commentable_id);
+
+
+--
+-- Name: index_friendly_id_slugs_on_slug_and_sluggable_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_friendly_id_slugs_on_slug_and_sluggable_type ON public.friendly_id_slugs USING btree (slug, sluggable_type);
+
+
+--
+-- Name: index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope ON public.friendly_id_slugs USING btree (slug, sluggable_type, scope);
+
+
+--
+-- Name: index_friendly_id_slugs_on_sluggable_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_friendly_id_slugs_on_sluggable_id ON public.friendly_id_slugs USING btree (sluggable_id);
+
+
+--
+-- Name: index_friendly_id_slugs_on_sluggable_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_friendly_id_slugs_on_sluggable_type ON public.friendly_id_slugs USING btree (sluggable_type);
 
 
 --
@@ -1102,6 +1185,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20180810071937'),
 ('20180812155112'),
 ('20180816061629'),
-('20180819134303');
+('20180819134303'),
+('20180819141121'),
+('20180820052937');
 
 

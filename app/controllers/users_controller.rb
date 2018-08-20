@@ -1,12 +1,14 @@
 class UsersController < ApplicationController
-  before_action :find_user, only: [:edit, :update, :destroy]
-  before_action :authenticate_user!, except: [:new, :create]
-  before_action :correct_user, only: [:edit, :update]
-  before_action :admin_user, only: [:destroy]
-  layout "user_layout", except: [:new, :create]
+  load_and_authorize_resource param_method: :user_params
 
   def index
-    @users = User.page(params[:page]).per Settings.paginate.per_user
+    @q = User.ransack(params[:q])
+    @users = if @q
+                  @q.result.page(params[:page])
+                    .per Settings.paginate.per_user
+             else
+               User.page(params[:page]).per Settings.paginate.per_user
+             end
   end
 
   def new
@@ -32,6 +34,7 @@ class UsersController < ApplicationController
   def edit; end
 
   def update
+    @user = User.friendly.find(params[:id])
     if @user.update_attributes user_params
       flash[:success] = t "sucess_update"
       redirect_to request.referrer
@@ -56,19 +59,4 @@ class UsersController < ApplicationController
       :password_confirmation
   end
 
-  def find_user
-    @user = User.find_by id: params[:id]
-
-    return if @user
-    flash[:danger] = t "cant_find_user"
-    redirect_to request.referrer || root_url
-  end
-
-  def correct_user
-    redirect_to root_url unless @user.is_user? current_user
-  end
-
-  def admin_user
-    redirect_to root_url unless current_user.is_admin?
-  end
 end
