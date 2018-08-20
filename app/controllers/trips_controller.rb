@@ -47,6 +47,7 @@ class TripsController < ApplicationController
       @message = Message.new
     end
     @user = @trip.owner
+    @plants = @trip.plants
   end
 
   def destroy

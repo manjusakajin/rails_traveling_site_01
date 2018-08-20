@@ -48,17 +48,9 @@
               <li>
                 <%= link_to t("create_trips"), new_trip_path %>
               </li>
-              <li>
-                <%= link_to t("my_trips"),
-                  user_trips_path(user_id: current_user.id) %>
-              </li>
-              <li>
-                <%= link_to t("my_request"),
-                  user_participations_path(user_id: current_user.id) %>
-              </li>
             </ul>
           </li>
-          <% if current_user.is_admin? %>
+          <% if current_user.admin? %>
             <li>
               <%= link_to t("management"), "#homeSubmenu3",
                 data: {toggle: "collapse"}, aria: {expanded: "false"},

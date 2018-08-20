@@ -20,13 +20,6 @@ class Trip < ApplicationRecord
 
   accepts_nested_attributes_for :place, reject_if: :all_blank
 
-  acts_as_notifiable :users,
-  targets: ->(trip, key) {
-    trip.members.eager_load(:participations).
-      where("participations.accepted = ?",1)
-    },
-  tracked: { only: [:update] }
-
   validates :name, presence: true, length:
     {maximum: Settings.trip.name.maximum}
   validates :name, presence: true, uniqueness: {case_sensitive: false},

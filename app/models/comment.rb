@@ -6,9 +6,4 @@ class Comment < ApplicationRecord
   validates :body, presence: true
   validates :user_id, presence: true
 
-  acts_as_notifiable :users,
-  targets: ->(comment,key) {
-	   comment.user
-  },
-  tracked: true
 end

@@ -1,17 +1,28 @@
-<% if @pg_search_users.any? %>
-  <h2><%= t("users") %></h2>
-  <%= render partial: "results/user", collection: @pg_search_users, as: :user  %>
-  <%= paginate @pg_search_users, theme: "twitter-bootstrap-4" %>
-<% end %>
+<%= provide :title, @content %>
+<% provide :title, t("search_results") %>
+<div class="blog">
+  <div class="container">
+    <div class="row">
 
-<% if @pg_search_reviews.any? %>
-  <h2><%= t("reviews") %></h2>
-  <%= render partial: "results/review", collection: @pg_search_reviews, as: :review  %>
-  <%= paginate @pg_search_reviews, theme: "twitter-bootstrap-4" %>
-<% end %>
+      <div class="col-lg-8">
+        <% if @pg_search_users.any? %>
+        <h3><%= t("users") %>:</h3>
+        <%= render partial: "results/user", collection: @pg_search_users, as: :user  %>
+        <%= paginate @pg_search_users, theme: "twitter-bootstrap-4" %>
+        <% end %>
 
-<% if @pg_search_trips.any? %>
-  <h2><%= t("trips") %></h2>
-  <%= render partial: "results/trip", collection: @pg_search_trips, as: :trip  %>
-  <%= paginate @pg_search_trips, theme: "twitter-bootstrap-4" %>
-<% end %>
+        <% if @pg_search_reviews.any? %>
+        <h3><%= t("reviews") %>:</h3>
+        <%= render partial: "results/review", collection: @pg_search_reviews, as: :review  %>
+        <%= paginate @pg_search_reviews, theme: "twitter-bootstrap-4" %>
+        <% end %>
+
+        <% if @pg_search_trips.any? %>
+        <h3><%= t("trips") %>:</h3>
+        <%= render partial: "results/trip", collection: @pg_search_trips, as: :trip  %>
+        <%= paginate @pg_search_trips, theme: "twitter-bootstrap-4" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

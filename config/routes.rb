@@ -8,7 +8,6 @@ Rails.application.routes.draw do
         registrations: "users/registrations",
         sessions: "users/sessions"
       }
-    notify_to :users, with_devise: :users
     resources :users
     resources :trips, only: [:new, :create, :index, :show, :destroy] do
       resources :participations, only: [:create, :destroy, :index]
