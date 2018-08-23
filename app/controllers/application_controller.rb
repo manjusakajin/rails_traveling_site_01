@@ -14,8 +14,8 @@ class ApplicationController < ActionController::Base
     @message = Message.new
   end
 
-  def default_url_options _options = {}
-    {locale: I18n.locale}
+  def self.default_url_options(options={})
+    options.merge({ :locale => I18n.locale })
   end
 
 end
